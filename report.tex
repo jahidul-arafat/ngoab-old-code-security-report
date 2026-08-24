@@ -1,0 +1,747 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper,portrait,margin=0.9in]{geometry}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage[hidelinks]{hyperref}
+\usepackage{parskip}
+
+\definecolor{sevCritical}{RGB}{192,0,0}
+\definecolor{sevHigh}{RGB}{216,80,0}
+\definecolor{sevMedium}{RGB}{191,144,0}
+\definecolor{sevLow}{RGB}{47,84,150}
+\definecolor{sevInfo}{RGB}{89,89,89}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash\bfseries}p{0.20\textwidth}}
+\newcolumntype{R}{>{\raggedright\arraybackslash}X}
+
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true,frame=single,
+ columns=fullflexible,backgroundcolor=\color{black!4},keepspaces=true,
+ breakatwhitespace=false,showstringspaces=false,xleftmargin=2pt}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}
+\pagestyle{fancy}\fancyhf{}
+\lhead{\small ngoab-main}\rhead{\small Security Review}\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+\newcommand{\sevbadge}[1]{\textbf{\textcolor{sev#1}{#1}}}
+\newcommand{\findtitle}[3]{\noindent{\large\bfseries #2}\hfill{\normalsize\texttt{#3}}\\[2pt]
+ {\sevbadge{#1}}\par\vspace{4pt}}
+
+\begin{document}
+\begin{center}{\LARGE\bfseries Source-Code Security Review}\\[0.5em]{\Large ngoab-main}\end{center}\vspace{0.5em}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Stack & PHP \textasciicircum{}8.0, Laravel 9.52.21, tymon/jwt-auth 2.2.1 (HS256) mobile/API, MySQL + Redis, exceptio/laravel-sonali-payment 1.0 (Sonali Bank SPG), mPDF 8.2.7 + barryvdh/laravel-dompdf 3.1.4 + niklasravnsborg/laravel-pdf 4.1.0, maatwebsite/excel 3.1 + phpoffice/phpspreadsheet 1.30.2, opcodesio/log-viewer 3.21.1, Laravel Mix, Docker Compose \\
+Commit & \texttt{not a git repository (working tree only)} \\
+Date & 2026-08-24 \\
+Reviewer & Aubria \\
+Team & SCR source-code vulnerability review team \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{6pt}\section*{Summary of Findings}
+\begin{center}\begin{tabular}{lr}\toprule\textbf{Severity} & \textbf{Count}\\\midrule
+\sevbadge{Critical} & 3 \\
+\sevbadge{High} & 6 \\
+\sevbadge{Medium} & 5 \\
+\sevbadge{Low} & 5 \\
+\sevbadge{Info} & 0 \\
+\midrule\textbf{Total} & \textbf{19}\\\bottomrule\end{tabular}\end{center}
+\section*{Scope \& Coverage}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Reviewed & app/Http/Controllers (85+ controllers: NGO, Front, Admin, Api, Auth, Payment), app/Http/Middleware (JwtMiddleware, AdminRoleMiddleware), app/Traits (MpdfTrait, PaymentTrait), routes/ (web.php \textasciitilde{}710 routes, api.php, ad/ao/dg/director/uda desk files, fd1-frontend/fd7/fd9/fd91/renew), app/Imports (Fd6/Fd7 Excel importers), app/Models, app/Jobs, app/Helpers/helpers.php, config/ (auth, jwt, sonali-payment), resources/views (Blade PDF templates), composer.lock (SCA), public/ tree (uploads, bundled JS) \\
+Not reviewed & vendor/ and node\_modules/ (third-party; covered via SCA), app/Http/Controllers/sonali-payold.php (legacy dead code, route commented out), runtime data / storage / DB contents \\
+Notes & Static analysis only; no code executed. Three parallel auth systems (session web + admin guards; JWT on /api). Public self-registration (POST /postRegistration, no middleware) makes every 'authenticated user' finding anonymous-reachable via one register step. nginx docroot = app root with unrestricted \textbackslash{}.php\$ handler and no deny rule on public/uploads/, so any .php landing there executes. No committed .env in this repo (unlike prior reviews); secrets exposure is via .env.save*/swap files/hardcoded creds. \\
+\bottomrule
+\end{tabularx}}
+
+\section*{Findings Index}
+{\renewcommand{\arraystretch}{1.25}%
+\begin{longtable}{@{}l l l >{\raggedright\arraybackslash}p{0.52\textwidth}@{}}
+\toprule \textbf{ID} & \textbf{Sev} & \textbf{CVSS} & \textbf{Title}\\\midrule\endhead
+\texttt{SCR-001} & \sevbadge{Critical} & 9.8 & Unauthenticated PDF/PHP-polyglot upload -\textgreater{} remote code execution\\
+\texttt{SCR-002} & \sevbadge{Critical} & 9.8 & Unauthenticated arbitrary password reset (no token/ownership) -\textgreater{} account takeover\\
+\texttt{SCR-003} & \sevbadge{Critical} & 9.8 & Tokenless password reset keyed on sequential user id -\textgreater{} mass account takeover\\
+\texttt{SCR-004} & \sevbadge{High} & 8.8 & Unrestricted file upload -\textgreater{} PHP RCE via query-note reply attachments (4 sinks, one root cause)\\
+\texttt{SCR-005} & \sevbadge{High} & 8.1 & API profileEdit/profileUpdate IDOR -\textgreater{} arbitrary-user disclosure and account takeover\\
+\texttt{SCR-006} & \sevbadge{High} & 7.7 & Blind SSRF via mPDF remote resource fetch in PDF rendering\\
+\texttt{SCR-007} & \sevbadge{High} & 7.5 & Unauthenticated IDOR: mass download of other NGOs' documents and national-ID scans\\
+\texttt{SCR-008} & \sevbadge{High} & 7.5 & World-readable full database dump served from the web root\\
+\texttt{SCR-009} & \sevbadge{High} & 7.2 & Any-admin -\textgreater{} superadmin privilege escalation (missing role gate on write endpoints)\\
+\texttt{SCR-010} & \sevbadge{Medium} & 6.5 & Payment bypass: response() ignores verification and unconditionally sets paid flag\\
+\texttt{SCR-011} & \sevbadge{Medium} & 6.5 & DG-level application data readable by any admin role (missing admin.role gate)\\
+\texttt{SCR-012} & \sevbadge{Medium} & 6.1 & Laravel framework 9.52.21 vulnerable to CRLF injection in default email validation (CVE-2026-48019)\\
+\texttt{SCR-013} & \sevbadge{Medium} & 5.3 & Payment integrity: no amount validation and no-op updateLicenseFee stub on unauthenticated IPN\\
+\texttt{SCR-014} & \sevbadge{Medium} & 4.3 & Stored HTML/content injection into official government PDFs\\
+\texttt{SCR-015} & \sevbadge{Low} & 4.0 & Secrets and hardcoded credentials exposed by location (merged: IPN cred + committed secrets)\\
+\texttt{SCR-016} & \sevbadge{Low} & 4.2 & setasign/fpdi 2.6.4 vulnerable (GHSA-2mgw-7q6p-8grg, fixed 2.6.7)\\
+\texttt{SCR-017} & \sevbadge{Low} & 3.7 & symfony/mime 6.4.30 vulnerable (GHSA-qpmx-3rfj-7rhv, fixed 6.4.40)\\
+\texttt{SCR-018} & \sevbadge{Low} & 3.1 & dompdf/dompdf 3.1.4 vulnerable (6 CVEs, fixed 3.1.6)\\
+\texttt{SCR-019} & \sevbadge{Low} & 4.2 & Outdated bundled jQuery 3.2.1 with known XSS advisories (CVE-2020-11022/11023)\\
+\bottomrule\end{longtable}}
+\clearpage
+\findtitle{Critical}{Unauthenticated PDF/PHP-polyglot upload -\textgreater{} remote code execution}{SCR-001}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{Critical} \\
+CVSS & 3.1\quad\textbf{9.8} \\
+Vector & \texttt{\small AV:\allowbreak{}N/\allowbreak{}AC:\allowbreak{}L/\allowbreak{}PR:\allowbreak{}N/\allowbreak{}UI:\allowbreak{}N/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}H/\allowbreak{}I:\allowbreak{}H/\allowbreak{}A:\allowbreak{}H} \\
+CWE & CWE-434 Unrestricted Upload of File with Dangerous Type, CWE-646 Reliance on File Name or Extension \\
+OWASP & A01:2021 Broken Access Control, A03:2021 Injection \\
+Category & Unrestricted File Upload / RCE \\
+Location & \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}NGO/\allowbreak{}Fd6FormController.\allowbreak{}php:\allowbreak{}3525}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}NGO/\allowbreak{}Fd6FormController.\allowbreak{}php:\allowbreak{}3530}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}NGO/\allowbreak{}Fd6FormController.\allowbreak{}php:\allowbreak{}3550}\newline \texttt{routes/\allowbreak{}web.\allowbreak{}php:\allowbreak{}1211} \\
+Found by & injection+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & ministryLetterAnswerStore validates 'attachment.*' =\textgreater{} 'nullable|mimes:pdf|max:5120'. Laravel's mimes rule checks file CONTENT via finfo, not the client extension; the sink saves time().'\_'.\$file-\textgreater{}getClientOriginalName(), preserving the attacker's filename. A file with valid \%PDF magic bytes named shell.php passes validation and is written as \textless{}ts\textgreater{}\_shell.php. \\
+Impact & Arbitrary PHP execution as the web user, unauthenticated. The route sits after the auth group closes (group opens web.php:472, closes web.php:1206; this route is at web.php:1211). Target id is base64\_decode(\$id) of a sequential ExternalMinistryNote id (trivially enumerable), no ownership check. \\
+Reachability & Fully unauthenticated. Requires a guessable ministry-note id (base64 of small int). Confirmed reachable by verifier. \\
+Evidence & \texttt{\small Validation at Fd6FormController.php:3530 uses mimes:pdf (content-based); sink at :3550 saves getClientOriginalName(); route web.php:1211 is outside the auth Route::group. public/uploads/ has no PHP-exec deny under the stated nginx config.} \\
+Remediation & Generate the stored filename server-side and derive the extension from content (never getClientOriginalName()); store outside the web root and serve via an authenticated controller; add an extensions:pdf rule alongside mimes; deny .php execution under /uploads at nginx.\newline\emph{Pattern:} Never trust the client-supplied filename/extension. Validate content AND pin the stored extension; keep user uploads off the docroot. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+$request->validate(['attachment'=>['required','file','mimes:pdf','extensions:pdf','max:5120']]);
+$ext=$file->extension();
+$name=time().'_'.Str::random(20).'.'.$ext;
+$path=$file->storeAs('ministry_notes',$name,'local'); // storage/app, non-public
+// nginx: location ^~ /uploads/ { location ~ \.php$ { return 403; } }
+\end{lstlisting}
+
+\clearpage
+\findtitle{Critical}{Unauthenticated arbitrary password reset (no token/ownership) -\textgreater{} account takeover}{SCR-002}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{Critical} \\
+CVSS & 3.1\quad\textbf{9.8} \\
+Vector & \texttt{\small AV:\allowbreak{}N/\allowbreak{}AC:\allowbreak{}L/\allowbreak{}PR:\allowbreak{}N/\allowbreak{}UI:\allowbreak{}N/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}H/\allowbreak{}I:\allowbreak{}H/\allowbreak{}A:\allowbreak{}H} \\
+CWE & CWE-640 Weak Password Recovery Mechanism, CWE-306 Missing Authentication for Critical Function \\
+OWASP & A07:2021 Identification and Authentication Failures, A01:2021 Broken Access Control \\
+Category & Broken Authentication / Weak Password Recovery \\
+Location & \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}Auth/\allowbreak{}AuthController.\allowbreak{}php:\allowbreak{}376}\newline \texttt{routes/\allowbreak{}web.\allowbreak{}php:\allowbreak{}382} \\
+Found by & authz+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & POST /force-password-reset is a bare route with no middleware. Handler resolves the target as User::where('email',\$request-\textgreater{}email)-\textgreater{}orWhere('registration\_number\_given\_by\_admin', auth()-\textgreater{}user()?-\textgreater{}registration\_number\_given\_by\_admin)-\textgreater{}firstOrFail() then \$user-\textgreater{}password=Hash::make(\$request-\textgreater{}password); \$user-\textgreater{}save(). No token, OTP, current-password, or session-ownership check. \\
+Impact & Any attacker sets any NGO/applicant account's password to a known value and logs in (full takeover of that user and their submission data). For anonymous callers the ?-\textgreater{} yields null so the orWhere degenerates to registration\_number IS NULL; the email clause still resolves a chosen victim. \\
+Reachability & Unauthenticated. Hits the User (web) guard, not the separate admin guard. Confirmed by verifier. \\
+Evidence & \texttt{\small Route web.php:382 has no middleware (immediately after the AuthController group closes). AuthController.php:376-415 sets password with no verification token.} \\
+Remediation & Delete this endpoint or replace it with Laravel's signed, single-use, time-limited token flow (Password::sendResetLink / Password::reset). Never resolve the reset target from an unauthenticated request body.\newline\emph{Pattern:} Password recovery must prove control of the account (emailed single-use token) before changing credentials. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+Password::reset($request->only('email','password','password_confirmation','token'),
+  fn($user,$pw)=>$user->forceFill(['password'=>Hash::make($pw)])->save());
+\end{lstlisting}
+
+\clearpage
+\findtitle{Critical}{Tokenless password reset keyed on sequential user id -\textgreater{} mass account takeover}{SCR-003}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{Critical} \\
+CVSS & 3.1\quad\textbf{9.8} \\
+Vector & \texttt{\small AV:\allowbreak{}N/\allowbreak{}AC:\allowbreak{}L/\allowbreak{}PR:\allowbreak{}N/\allowbreak{}UI:\allowbreak{}N/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}H/\allowbreak{}I:\allowbreak{}H/\allowbreak{}A:\allowbreak{}H} \\
+CWE & CWE-640 Weak Password Recovery Mechanism, CWE-639 Authorization Bypass Through User-Controlled Key, CWE-306 Missing Authentication for Critical Function \\
+OWASP & A01:2021 Broken Access Control, A07:2021 Identification and Authentication Failures \\
+Category & Broken Authentication / IDOR \\
+Location & \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}Auth/\allowbreak{}AuthController.\allowbreak{}php:\allowbreak{}51}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}Auth/\allowbreak{}AuthController.\allowbreak{}php:\allowbreak{}73}\newline \texttt{routes/\allowbreak{}web.\allowbreak{}php:\allowbreak{}366} \\
+Found by & authz+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & passwordChangeConfirmed does User::find(\$request-\textgreater{}id) then sets password from the request. The reset link generator passwordResetPage(\$id) (:73) carries a bare sequential user id with no signed token. Route web.php:366 has no middleware. \\
+Impact & Attacker POSTs id=1,2,3,... plus a chosen password to reset every account in a loop. No token, ownership, or rate limit observed. \\
+Reachability & Unauthenticated; distinct route/method from SCR-002. Enables bulk enumeration takeover. Confirmed by verifier. \\
+Evidence & \texttt{\small AuthController.php:51-68 find()+save(); reset link uses bare id at :73. Route in the no-middleware controller group (web.php:357-373).} \\
+Remediation & Replace the id-based link with a signed URL or hashed reset token stored in password\_reset\_tokens; validate and expire it server-side; rate-limit.\newline\emph{Pattern:} Never authorize a state change from a guessable, unsigned identifier. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+// Use signed, single-use tokens (Password::reset) as in SCR-002; never trust $request->id.
+\end{lstlisting}
+
+\clearpage
+\findtitle{High}{Unrestricted file upload -\textgreater{} PHP RCE via query-note reply attachments (4 sinks, one root cause)}{SCR-004}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{High} \\
+CVSS & 3.1\quad\textbf{8.8} \\
+Vector & \texttt{\small AV:\allowbreak{}N/\allowbreak{}AC:\allowbreak{}L/\allowbreak{}PR:\allowbreak{}L/\allowbreak{}UI:\allowbreak{}N/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}H/\allowbreak{}I:\allowbreak{}H/\allowbreak{}A:\allowbreak{}H} \\
+CWE & CWE-434 Unrestricted Upload of File with Dangerous Type, CWE-668 Exposure of Resource to Wrong Sphere \\
+OWASP & A01:2021 Broken Access Control, A05:2021 Security Misconfiguration \\
+Category & Unrestricted File Upload / RCE \\
+Location & \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}NGO/\allowbreak{}Fd6FormController.\allowbreak{}php:\allowbreak{}3433}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}NGO/\allowbreak{}Fd7FormController.\allowbreak{}php:\allowbreak{}1194}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}NGO/\allowbreak{}RenewController.\allowbreak{}php:\allowbreak{}1339}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}Front/\allowbreak{}Fd1NewController.\allowbreak{}php:\allowbreak{}1405}\newline \texttt{routes/\allowbreak{}web.\allowbreak{}php:\allowbreak{}749} \\
+Found by & injection+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & Four byte-identical sinks: \$filename = time().'\_'.\$file-\textgreater{}getClientOriginalName(); \$file-\textgreater{}move(public\_path('uploads/external\_ministry\_notes'), \$filename); with no mimes/extensions/size validation. queryNoteReplyStore (Fd6 web.php:749, Fd7 web.php:755), renewQueryNoteReplyStore (web.php:734), registrationQueryNoteReplyStore (fd1-frontend.php:58). \\
+Impact & A shell.php uploaded here lands in a web-served dir and executes under nginx -\textgreater{} full RCE as the web user. The query\_note\_id is not ownership-checked, so any registered user can target any note. \\
+Reachability & Requires an authenticated User account, satisfied by public self-registration (POST /postRegistration) -\textgreater{} effectively anonymous-reachable (borderline 9.8; scored PR:L for the register step). \\
+Evidence & \texttt{\small Identical getClientOriginalName()-\textgreater{}move(public\_path(...)) pattern at all four locations; no validation in the methods. public/uploads/ has no PHP-exec deny.} \\
+Remediation & Same secure pattern as SCR-001: generate the filename, derive extension from content, storeAs outside the docroot, add a strict mimes/extensions allow-list, and deny .php under /uploads at nginx.\newline\emph{Pattern:} One shared upload helper that regenerates names and pins safe extensions; never write user files under public/. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+$request->validate(['attachment'=>['required','file','mimes:pdf,jpg,jpeg,png','max:5120']]);
+$name=time().'_'.Str::random(20).'.'.$file->extension();
+$model->attachment=$file->storeAs('external_ministry_notes',$name,'local');
+\end{lstlisting}
+
+\clearpage
+\findtitle{High}{API profileEdit/profileUpdate IDOR -\textgreater{} arbitrary-user disclosure and account takeover}{SCR-005}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{High} \\
+CVSS & 3.1\quad\textbf{8.1} \\
+Vector & \texttt{\small AV:\allowbreak{}N/\allowbreak{}AC:\allowbreak{}L/\allowbreak{}PR:\allowbreak{}L/\allowbreak{}UI:\allowbreak{}N/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}H/\allowbreak{}I:\allowbreak{}H/\allowbreak{}A:\allowbreak{}N} \\
+CWE & CWE-639 Authorization Bypass Through User-Controlled Key, CWE-284 Improper Access Control \\
+OWASP & A01:2021 Broken Access Control \\
+Category & Broken Object-Level Authorization \\
+Location & \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}Api/\allowbreak{}AuthController.\allowbreak{}php:\allowbreak{}253}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}Api/\allowbreak{}AuthController.\allowbreak{}php:\allowbreak{}280}\newline \texttt{routes/\allowbreak{}api.\allowbreak{}php:\allowbreak{}35} \\
+Found by & authz+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & jwt.verify authenticates the token but the controllers discard the principal and operate on User::find(\$request-\textgreater{}id). profileEdit?id=N returns the entire victim User row (incl. password hash); profileUpdate with id=N and the victim email (learned from profileEdit) enters the update branch and overwrites user\_name/non\_verified\_email/password. \\
+Impact & Any holder of a valid JWT (obtainable by anyone via public ngoRegister+ngoLogin) can read any account's data and take it over. The email-match guard is defeated by the step-1 disclosure. \\
+Reachability & Any authenticated JWT user (public registration). Confirmed reliable ATO primitive by verifier. \\
+Evidence & \texttt{\small Api/AuthController.php:253 (profileEdit) and :280 (profileUpdate) trust \$request-\textgreater{}id; middleware only checks token presence. Routes api.php:35-36.} \\
+Remediation & Operate only on the token's own user: replace \$request-\textgreater{}id with JWTAuth::parseToken()-\textgreater{}authenticate()-\textgreater{}id in both methods.\newline\emph{Pattern:} Derive the acting user's identity from the authenticated session/token, never from a client-supplied id. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+$user = auth('api')->user(); // or JWTAuth::parseToken()->authenticate();
+$user->update($request->only('user_name','email'));
+\end{lstlisting}
+
+\clearpage
+\findtitle{High}{Blind SSRF via mPDF remote resource fetch in PDF rendering}{SCR-006}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{High} \\
+CVSS & 3.1\quad\textbf{7.7} \\
+Vector & \texttt{\small AV:\allowbreak{}N/\allowbreak{}AC:\allowbreak{}L/\allowbreak{}PR:\allowbreak{}L/\allowbreak{}UI:\allowbreak{}N/\allowbreak{}S:\allowbreak{}C/\allowbreak{}C:\allowbreak{}H/\allowbreak{}I:\allowbreak{}N/\allowbreak{}A:\allowbreak{}N} \\
+CWE & CWE-918 Server-Side Request Forgery \\
+OWASP & A10:2021 Server-Side Request Forgery \\
+Category & Server-Side Request Forgery \\
+Location & \texttt{app/\allowbreak{}Traits/\allowbreak{}MpdfTrait.\allowbreak{}php:\allowbreak{}1}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}NGO/\allowbreak{}Fd3FormController.\allowbreak{}php:\allowbreak{}689}\newline \texttt{resources/\allowbreak{}views/\allowbreak{}front/\allowbreak{}fd3Form/\allowbreak{}fd3PdfView.\allowbreak{}blade.\allowbreak{}php:\allowbreak{}228} \\
+Found by & injection+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & MpdfTrait sets no remote-fetch restriction; mPDF 8.2.7 fetches remote \textless{}img\textgreater{}/CSS url() by default. Stored FD3 fields (purpose\_of\_donation, objectives\_of\_the\_organization, project\_account\_details, purpose\_details, money\_received\_details, method\_details, equipment\_details) are emitted unescaped via \{!! !!\} into WriteHTML. \\
+Impact & A self-registered user stores \textless{}img src="http://169.254.169.254/latest/meta-data/..."\textgreater{} (or an internal host); on PDF generation the server issues the request. Blind primitive (metadata is text) but internal port-scan via timing/error and hitting unauthenticated internal endpoints/cloud metadata are feasible. Scope:Changed. \\
+Reachability & The submitting NGO user can trigger their own PDF render (fd3pdfview route under web auth); admin reviewers also render the same data. \\
+Evidence & \texttt{\small No enableRemoteFetch/restricting HTTP client in MpdfTrait; \textasciitilde{}22 WriteHTML sinks, \textgreater{}=7 blades emit user DB fields via \{!! !!\}. fd3pdfview render at Fd3FormController.php:682-\textgreater{}689.} \\
+Remediation & Escape user data in PDF blades (\{\{ \}\} not \{!! !!\}) or HTMLPurify with no external resource URLs; inject an mPDF HTTP client that blocks private/link-local ranges and non-http schemes; block egress from the render worker.\newline\emph{Pattern:} Treat any HTML that reaches a server-side renderer as untrusted; deny outbound requests to internal/link-local addresses. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+$mpdf->setHttpClient(new BlockPrivateNetworkClient()); // rejects 169.254/10/127/172.16/192.168 + non-http
+// blade: {{ $fd3FormList->purpose_details }} (escaped)
+\end{lstlisting}
+
+\clearpage
+\findtitle{High}{Unauthenticated IDOR: mass download of other NGOs' documents and national-ID scans}{SCR-007}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{High} \\
+CVSS & 3.1\quad\textbf{7.5} \\
+Vector & \texttt{\small AV:\allowbreak{}N/\allowbreak{}AC:\allowbreak{}L/\allowbreak{}PR:\allowbreak{}N/\allowbreak{}UI:\allowbreak{}N/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}H/\allowbreak{}I:\allowbreak{}N/\allowbreak{}A:\allowbreak{}N} \\
+CWE & CWE-639 Authorization Bypass Through User-Controlled Key \\
+OWASP & A01:2021 Broken Access Control \\
+Category & Broken Object-Level Authorization \\
+Location & \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}NGO/\allowbreak{}NamechangeController.\allowbreak{}php:\allowbreak{}850}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}NGO/\allowbreak{}NamechangeController.\allowbreak{}php:\allowbreak{}892}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}NGO/\allowbreak{}NamechangeController.\allowbreak{}php:\allowbreak{}907}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}NGO/\allowbreak{}NamechangeController.\allowbreak{}php:\allowbreak{}921}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}NGO/\allowbreak{}NamechangeController.\allowbreak{}php:\allowbreak{}940}\newline \texttt{routes/\allowbreak{}web.\allowbreak{}php:\allowbreak{}298} \\
+Found by & authz+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & The NamechangeController route group (web.php:298-306) has no middleware. Each method does DB::table(...)-\textgreater{}where('id',\$id)-\textgreater{}value(\textless{}path\_col\textgreater{}) then file\_get\_contents(public\_path('/').\$path) and streams the bytes, with no ownership/session check; \{id\} is a plain integer. \\
+Impact & Anonymous attacker loops GET /ngoMemberDocument/1..N (national-ID copies), /sourceOfFund/\{id\} (funding letters), /ngoOtherDocument/\{id\}, /otherPdfFromFDOneForm/\{id\}, /nameChangeDocDownload/\{id\} to exfiltrate every NGO's documents. High-value PII. \\
+Reachability & Fully unauthenticated. Path-traversal secondary correctly dismissed (server-generated DB paths, no ../); this stands as pure broken object-level authz. Confirmed by verifier. \\
+Evidence & \texttt{\small Route group web.php:298-306 zero middleware; value(path)-\textgreater{}file\_get\_contents streaming with no authz at NamechangeController.php:850/892/907/921/940.} \\
+Remediation & Wrap the group in auth + is\_verify\_email and add an ownership check joining the document's parent record to Auth::id() before serving.\newline\emph{Pattern:} Every object fetched by id must be authorized against the current principal (ownership or role), not merely authenticated. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+Route::middleware(['auth'])->group(function(){ /* download routes */ });
+// in each method: abort_unless($doc->ngo->user_id === auth()->id(), 403);
+\end{lstlisting}
+
+\clearpage
+\findtitle{High}{World-readable full database dump served from the web root}{SCR-008}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{High} \\
+CVSS & 3.1\quad\textbf{7.5} \\
+Vector & \texttt{\small AV:\allowbreak{}N/\allowbreak{}AC:\allowbreak{}L/\allowbreak{}PR:\allowbreak{}N/\allowbreak{}UI:\allowbreak{}N/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}H/\allowbreak{}I:\allowbreak{}N/\allowbreak{}A:\allowbreak{}N} \\
+CWE & CWE-538 Insertion of Sensitive Information into Externally-Accessible File, CWE-522 Insufficiently Protected Credentials \\
+OWASP & A01:2021 Broken Access Control, A05:2021 Security Misconfiguration \\
+Category & Sensitive Data Exposure \\
+Location & \texttt{public/\allowbreak{}uploads/\allowbreak{}FdOneForm/\allowbreak{}2024-27-0317115230534910498380.\allowbreak{}sql:\allowbreak{}1}\newline \texttt{public/\allowbreak{}uploads/\allowbreak{}FdOneForm/\allowbreak{}2024-10-0317100601992640092317.\allowbreak{}sql:\allowbreak{}1} \\
+Found by & deps+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & A \textasciitilde{}4 MB phpMyAdmin dump sits under the public docroot with no auth gate, web-servable at /uploads/FdOneForm/2024-27-...498380.sql. Confirmed contents (redacted): 162 CREATE TABLE, INSERT for users/admins/oauth\_clients/oauth\_personal\_access\_clients, 72 bcrypt (\$2y\$) password hashes, and Passport OAuth client secrets. A second smaller dump is also present. \\
+Impact & Direct GET yields full schema + all account hashes + OAuth client secrets. Offline cracking of the bcrypt hashes and reuse of Passport secrets escalates to account/system compromise. \\
+Reachability & Unauthenticated HTTP GET. Confirmed by verifier. \\
+Evidence & \texttt{\small Both .sql files exist under public/uploads/FdOneForm/; dump contains users/admins/oauth\_clients INSERTs and 72 bcrypt hashes (verified by location, not echoed).} \\
+Remediation & Delete both .sql files from public/ and purge from backups/VCS; rotate all exposed secrets (Passport client secrets, any embedded DB creds) and force password resets given hash exposure; block dump extensions at nginx; never write DB exports under public/.\newline\emph{Pattern:} Database exports and backups must never live under a web-served directory. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+# nginx
+location ~* \.(sql|sqlite|bak|gz|zip|env)$ { return 403; }
+\end{lstlisting}
+
+\clearpage
+\findtitle{High}{Any-admin -\textgreater{} superadmin privilege escalation (missing role gate on write endpoints)}{SCR-009}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{High} \\
+CVSS & 3.1\quad\textbf{7.2} \\
+Vector & \texttt{\small AV:\allowbreak{}N/\allowbreak{}AC:\allowbreak{}L/\allowbreak{}PR:\allowbreak{}H/\allowbreak{}UI:\allowbreak{}N/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}H/\allowbreak{}I:\allowbreak{}H/\allowbreak{}A:\allowbreak{}H} \\
+CWE & CWE-862 Missing Authorization, CWE-269 Improper Privilege Management \\
+OWASP & A01:2021 Broken Access Control \\
+Category & Missing Authorization / Privilege Escalation \\
+Location & \texttt{routes/\allowbreak{}web.\allowbreak{}php:\allowbreak{}104}\newline \texttt{routes/\allowbreak{}web.\allowbreak{}php:\allowbreak{}117}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}Admin/\allowbreak{}AdminController.\allowbreak{}php:\allowbreak{}276} \\
+Found by & authz+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & user.update/user.store/user.toggleStatus (web.php:104-107) sit inside the auth:admin group (opens web.php:93) but ABOVE the admin.role:superadmin group (opens web.php:117). The update() sink upserts admin\_roles.role\_id with only exists:roles,id validation, with no check that the actor is superadmin or that the target role isn't superadmin. Read-side endpoints ARE superadmin-gated -\textgreater{} protection applied inconsistently. \\
+Impact & Any authenticated admin (any role) PUTs /admin/admin-user/\{ownId\} with role\_id=\textless{}superadmin\textgreater{} and becomes superadmin; user.store lets any admin mint new admin accounts. \\
+Reachability & Requires an existing admin credential (no admin self-registration; postRegistration creates web-guard users, not admins). Insider / compromised-low-priv-admin escalation -\textgreater{} PR:H. \\
+Evidence & \texttt{\small Routes at web.php:104-107 outside the admin.role:superadmin group (web.php:117); sink AdminController.php:276-284 updateOrInsert(['admin\_id'=\textgreater{}\$id],['role\_id'=\textgreater{}\$request-\textgreater{}role\_id]).} \\
+Remediation & Move the three write routes inside the admin.role:superadmin group; defense-in-depth: reject a privileged role\_id unless the actor is superadmin.\newline\emph{Pattern:} Apply the same authorization gate to writes as to the reads they mirror; never let a lower tier assign a higher tier. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+Route::middleware('admin.role:superadmin')->group(function(){ /* user.update/store/toggleStatus */ });
+if(Role::find($request->role_id)?->name==='superadmin' && !auth('admin')->user()->hasRole('superadmin')) abort(403);
+\end{lstlisting}
+
+\clearpage
+\findtitle{Medium}{Payment bypass: response() ignores verification and unconditionally sets paid flag}{SCR-010}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{Medium} \\
+CVSS & 3.1\quad\textbf{6.5} \\
+Vector & \texttt{\small AV:\allowbreak{}N/\allowbreak{}AC:\allowbreak{}L/\allowbreak{}PR:\allowbreak{}L/\allowbreak{}UI:\allowbreak{}N/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}N/\allowbreak{}I:\allowbreak{}H/\allowbreak{}A:\allowbreak{}L} \\
+CWE & CWE-345 Insufficient Verification of Data Authenticity, CWE-639 Authorization Bypass Through User-Controlled Key, CWE-476 NULL Pointer Dereference \\
+OWASP & A04:2021 Insecure Design \\
+Category & Insufficient Verification / Business Logic \\
+Location & \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}PaymentController.\allowbreak{}php:\allowbreak{}391}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}PaymentController.\allowbreak{}php:\allowbreak{}407}\newline \texttt{routes/\allowbreak{}web.\allowbreak{}php:\allowbreak{}446} \\
+Found by & authz+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & response() (route web.php:446, no auth) calls verifyPayment() at :407 and discards its return, then unconditionally runs FormCompleteStatus::where('id',...)-\textgreater{}update(['form\_eight\_status'=\textgreater{}1]) for Auth::user()-\textgreater{}id when type=='registration'. The lookup at :403 uses -\textgreater{}where('token',\$token) but the column is 'Token', so \$transaction is usually null and verification is skipped entirely. \\
+Impact & An authenticated user calls GET /payment/response?Token=anything -\textgreater{} registration Form-8 marked paid without any payment. Flag is keyed on session user, not the payment owner; null-deref on the unauth path is a secondary 500/DoS. \\
+Reachability & Authenticated NGO user (public registration); no payment required. Confirmed by verifier. \\
+Evidence & \texttt{\small PaymentController.php:407 return value discarded; :412-416 unconditional update; :403 wrong column case ('token' vs 'Token').} \\
+Remediation & Require verified Status==200 AND an amount match before setting the flag; bind the flag to the transaction's user\_id (not the session), use the correct column, and add auth/signed token to the route.\newline\emph{Pattern:} Grant paid state only after server-side verification of authenticity AND amount, bound to the payment's owner. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+$txn=DB::table('sonali_payments')->where('Token',$token)->first(); abort_unless($txn,404);
+$v=$this->getVerifyPaymentResponse($token); abort_unless(($v->Status??null)=='200',402);
+abort_unless($this->amountMatches($txn,$v),402);
+FormCompleteStatus::where('user_id',$txn->user_id)->update(['form_eight_status'=>1]);
+\end{lstlisting}
+
+\clearpage
+\findtitle{Medium}{DG-level application data readable by any admin role (missing admin.role gate)}{SCR-011}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{Medium} \\
+CVSS & 3.1\quad\textbf{6.5} \\
+Vector & \texttt{\small AV:\allowbreak{}N/\allowbreak{}AC:\allowbreak{}L/\allowbreak{}PR:\allowbreak{}L/\allowbreak{}UI:\allowbreak{}N/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}H/\allowbreak{}I:\allowbreak{}N/\allowbreak{}A:\allowbreak{}N} \\
+CWE & CWE-862 Missing Authorization \\
+OWASP & A01:2021 Broken Access Control \\
+Category & Missing Authorization \\
+Location & \texttt{routes/\allowbreak{}dg.\allowbreak{}php:\allowbreak{}127}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}Admin/\allowbreak{}DGCommonRouteController.\allowbreak{}php:\allowbreak{}1} \\
+Found by & authz+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & A second route group in dg.php (lines 127-137) requires only auth:admin with no admin.role child, while the sibling group at dg.php:14 correctly nests admin.role:dg. DGCommonRouteController methods (formNoFour/Five/Seven, fc2/fd3/fd4/fd5 forms) return all applications or fetch an arbitrary base64\_decode(\$id). \\
+Impact & Any authenticated admin (any staff role) reads DG-tier registration/renewal form data and enumerates arbitrary application ids. Insider horizontal/vertical read bypass; base64(id) is obfuscation, not authorization. \\
+Reachability & Requires an existing admin account (no admin self-registration). Insider threat. Confirmed by verifier. \\
+Evidence & \texttt{\small dg.php:127-137 group lacks admin.role, confirmed by comparison with the guarded sibling group at dg.php:14; *Show(\$id) does base64\_decode then fetch.} \\
+Remediation & Wrap the second dg.php group in the appropriate admin.role middleware matching the least privilege that should see DG form data.\newline\emph{Pattern:} Every admin route group carries an explicit role gate; never rely on a sibling group's gate. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+Route::middleware(['auth:admin','admin.role:dg'])->group(function(){ /* DGCommonRouteController routes */ });
+\end{lstlisting}
+
+\clearpage
+\findtitle{Medium}{Laravel framework 9.52.21 vulnerable to CRLF injection in default email validation (CVE-2026-48019)}{SCR-012}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{Medium} \\
+CVSS & 3.1\quad\textbf{6.1} \\
+Vector & \texttt{\small AV:\allowbreak{}N/\allowbreak{}AC:\allowbreak{}L/\allowbreak{}PR:\allowbreak{}N/\allowbreak{}UI:\allowbreak{}N/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}L/\allowbreak{}I:\allowbreak{}L/\allowbreak{}A:\allowbreak{}N} \\
+CWE & CWE-93 Improper Neutralization of CRLF Sequences \\
+OWASP & A06:2021 Vulnerable and Outdated Components \\
+Category & Vulnerable Dependency \\
+Location & \texttt{composer.\allowbreak{}lock:\allowbreak{}1} \\
+Found by & deps+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & Installed laravel/framework v9.52.21 (\textless{} patched 10.48.29 backport). The default email validation rule accepts CRLF-bearing addresses that can reach the mailer as header injection. \\
+Impact & User email from public registration/contact input flows into Mail::send(...-\textgreater{}to(\$request-\textgreater{}email)) -\textgreater{} header-injection surface. \\
+Reachability & Reachable via public registration/contact email fields. \\
+Evidence & \texttt{\small composer.lock pins laravel/framework 9.52.21; advisory CVE-2026-48019.} \\
+Remediation & Upgrade laravel/framework to the patched release (9.x backport / 10.48.29) or apply the email:strict / DNS-validated rule.\newline\emph{Pattern:} Keep the framework on a supported, patched line; validate email strictly. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+'email' => 'required|email:strict,dns'
+\end{lstlisting}
+
+\clearpage
+\findtitle{Medium}{Payment integrity: no amount validation and no-op updateLicenseFee stub on unauthenticated IPN}{SCR-013}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{Medium} \\
+CVSS & 3.1\quad\textbf{5.3} \\
+Vector & \texttt{\small AV:\allowbreak{}N/\allowbreak{}AC:\allowbreak{}L/\allowbreak{}PR:\allowbreak{}N/\allowbreak{}UI:\allowbreak{}N/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}N/\allowbreak{}I:\allowbreak{}L/\allowbreak{}A:\allowbreak{}N} \\
+CWE & CWE-345 Insufficient Verification of Data Authenticity, CWE-840 Business Logic Errors \\
+OWASP & A04:2021 Insecure Design \\
+Category & Business Logic / Insufficient Verification \\
+Location & \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}PaymentController.\allowbreak{}php:\allowbreak{}311}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}PaymentController.\allowbreak{}php:\allowbreak{}450}\newline \texttt{routes/\allowbreak{}api.\allowbreak{}php:\allowbreak{}61} \\
+Found by & authz+deps+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & sonaliIPNCheck (unauth, api.php:61) re-verifies server-to-server and only marks Success on bank Status=='200' (so forging 'paid' is mitigated - see dismissed SCR-D03), BUT performs no amount comparison against the expected fee, and updateLicenseFee() at :450 is a no-op stub (return true). The hardcoded IPN credential at :329 is reported separately as part of SCR-015 (secrets by location). \\
+Impact & Any bank-200 transaction is accepted as full payment regardless of amount paid (underpayment risk if the gateway 200s partial settlements); the benefit-granting routine does nothing. \\
+Reachability & Unauthenticated endpoint; forge-paid mitigated, residual is business-logic. Confirmed by verifier. \\
+Evidence & \texttt{\small PaymentController.php:347 re-verify; no amount check anywhere in the handler; :450-453 updateLicenseFee()\{ return true; \}.} \\
+Remediation & Validate the verified paid amount against the expected fee before accepting payment; implement updateLicenseFee idempotently bound to the transaction's verified amount.\newline\emph{Pattern:} Verify BOTH authenticity and the exact expected amount for every payment callback. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+$expected=$this->expectedFeeFor($payment->serviceId);
+if((float)$verifyResponse->PaidAmount !== (float)$expected) throw new \Exception('Amount mismatch');
+\end{lstlisting}
+
+\clearpage
+\findtitle{Medium}{Stored HTML/content injection into official government PDFs}{SCR-014}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{Medium} \\
+CVSS & 3.1\quad\textbf{4.3} \\
+Vector & \texttt{\small AV:\allowbreak{}N/\allowbreak{}AC:\allowbreak{}L/\allowbreak{}PR:\allowbreak{}L/\allowbreak{}UI:\allowbreak{}R/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}N/\allowbreak{}I:\allowbreak{}L/\allowbreak{}A:\allowbreak{}N} \\
+CWE & CWE-79 Improper Neutralization of Input During Web Page Generation, CWE-116 Improper Encoding or Escaping of Output \\
+OWASP & A03:2021 Injection \\
+Category & Improper Output Encoding \\
+Location & \texttt{resources/\allowbreak{}views/\allowbreak{}front/\allowbreak{}fd3Form/\allowbreak{}fd3PdfView.\allowbreak{}blade.\allowbreak{}php:\allowbreak{}228}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}NGO/\allowbreak{}FdFiveFormController.\allowbreak{}php:\allowbreak{}554}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}NGO/\allowbreak{}Fd9Controller.\allowbreak{}php:\allowbreak{}799}\newline \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}Admin/\allowbreak{}AoController.\allowbreak{}php:\allowbreak{}331} \\
+Found by & injection+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & The same unescaped \{!! !!\} user fields that enable SCR-006 also let an NGO user inject arbitrary HTML/content/layout (tables, replaced text, forged headings/seals via CSS) into official FD3/FD5/FD9 and admin ministry-note PDFs. mPDF executes no \textless{}script\textgreater{}, so this is document-integrity, not code exec. \\
+Impact & Reviewers/DG office print these as authoritative documents; injected content can alter what a reviewer then signs -\textgreater{} document forgery/integrity risk. \\
+Reachability & Any registered user stores the payload; a reviewer/admin (or the user) triggers generation (UI:R). \\
+Evidence & \texttt{\small Unescaped \{!! !!\} emission of stored user fields into WriteHTML at the listed sinks.} \\
+Remediation & Escape with \{\{ \}\} or HTMLPurifier with a minimal allow-list; never emit stored user fields via \{!! !!\} in PDF templates.\newline\emph{Pattern:} Output-encode all user data at the rendering boundary; PDFs are output too. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+{{ $fd3FormList->purpose_details }} {{-- escaped, no raw {!! !!} --}}
+\end{lstlisting}
+
+\clearpage
+\findtitle{Low}{Secrets and hardcoded credentials exposed by location (merged: IPN cred + committed secrets)}{SCR-015}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{Low} \\
+CVSS & 3.1\quad\textbf{4.0} \\
+Vector & \texttt{\small AV:\allowbreak{}L/\allowbreak{}AC:\allowbreak{}L/\allowbreak{}PR:\allowbreak{}L/\allowbreak{}UI:\allowbreak{}N/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}H/\allowbreak{}I:\allowbreak{}N/\allowbreak{}A:\allowbreak{}N} \\
+CWE & CWE-798 Use of Hard-coded Credentials, CWE-522 Insufficiently Protected Credentials, CWE-540 Inclusion of Sensitive Information in Source Code, CWE-315 Cleartext Storage of Sensitive Information \\
+OWASP & A05:2021 Security Misconfiguration, A07:2021 Identification and Authentication Failures \\
+Category & Credential Exposure \\
+Location & \texttt{app/\allowbreak{}Http/\allowbreak{}Controllers/\allowbreak{}PaymentController.\allowbreak{}php:\allowbreak{}329}\newline \texttt{config/\allowbreak{}sonali-payment-config.\allowbreak{}php:\allowbreak{}10}\newline \texttt{.\allowbreak{}env.\allowbreak{}save:\allowbreak{}1}\newline \texttt{.\allowbreak{}env.\allowbreak{}save.\allowbreak{}1:\allowbreak{}1}\newline \texttt{.\allowbreak{}env.\allowbreak{}example:\allowbreak{}1}\newline \texttt{routes/\allowbreak{}.\allowbreak{}web.\allowbreak{}php.\allowbreak{}swp:\allowbreak{}1} \\
+Found by & deps+authz+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & Consolidated secrets-by-location finding (per orchestrator merge of F3a's hardcoded IPN credential with the deps secrets item). Hardcoded Sonali IPN basic-auth credential at PaymentController.php:329 (Username 'ngoabsonaliipn' / 17-char Password, redacted); committed default test-mode-token at config/sonali-payment-config.php:10; env copies .env.save/.env.save.1/.env.example carrying reCAPTCHA secrets and setting APP\_DEBUG=true/APP\_ENV=local; committed editor swap files ..env.swp and routes/.web.php.swp[.save] (may leak source + secrets). No live application .env is committed in this repo. \\
+Impact & Anyone with source/repo access holds the IPN shared secret (direct-impact reduced because the IPN also re-verifies with the bank - see SCR-013), reCAPTCHA secrets, and potentially leaked source from swap files. APP\_ENV=local in the committed env copies also gates other misconfig (e.g. log-viewer default policy opening). \\
+Reachability & Requires source/tree access (AV:L). Rotate regardless. \\
+Evidence & \texttt{\small Grep/gitleaks/trufflehog confirmed the hardcoded cred at PaymentController.php:329 and the listed committed secret files (reported by location, redacted).} \\
+Remediation & Move all credentials to environment/secret storage (config() + env), rotate the IPN credential and reCAPTCHA secrets, delete .env.save*/.env.example-with-secrets and all editor swap files from the tree, and add them to .gitignore; use hash\_equals for credential comparison.\newline\emph{Pattern:} No secret in source; compare secrets in constant time; keep only .env.example with placeholder values. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+if(!hash_equals(config('sonali.ipn_pass'),$request->Password)) abort(401);
+// .gitignore: .env.save*  *.swp  .env
+\end{lstlisting}
+
+\clearpage
+\findtitle{Low}{setasign/fpdi 2.6.4 vulnerable (GHSA-2mgw-7q6p-8grg, fixed 2.6.7)}{SCR-016}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{Low} \\
+CVSS & 3.1\quad\textbf{4.2} \\
+Vector & \texttt{\small AV:\allowbreak{}L/\allowbreak{}AC:\allowbreak{}L/\allowbreak{}PR:\allowbreak{}L/\allowbreak{}UI:\allowbreak{}R/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}L/\allowbreak{}I:\allowbreak{}L/\allowbreak{}A:\allowbreak{}L} \\
+CWE & CWE-1035 Vulnerable Third-Party Component \\
+OWASP & A06:2021 Vulnerable and Outdated Components \\
+Category & Vulnerable Dependency \\
+Location & \texttt{composer.\allowbreak{}lock:\allowbreak{}1} \\
+Found by & deps+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & Installed setasign/fpdi v2.6.4 (the candidate's '6.0' was incorrect; 2.6.4 \textless{} 2.6.7 is genuinely vulnerable). Reachable only if a user-uploaded PDF passes through FPDI's import/parse path (mPDF is the primary engine). \\
+Impact & Parser-level vulnerability triggered via crafted PDF import; conditional reachability. \\
+Reachability & Conditional on a user-controlled PDF reaching FPDI import. \\
+Evidence & \texttt{\small composer.lock pins setasign/fpdi 2.6.4; advisory GHSA-2mgw-7q6p-8grg.} \\
+Remediation & Upgrade setasign/fpdi to \textgreater{}=2.6.7.\newline\emph{Pattern:} Track and patch transitive PDF libraries. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+composer require setasign/fpdi:^2.6.7
+\end{lstlisting}
+
+\clearpage
+\findtitle{Low}{symfony/mime 6.4.30 vulnerable (GHSA-qpmx-3rfj-7rhv, fixed 6.4.40)}{SCR-017}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{Low} \\
+CVSS & 3.1\quad\textbf{3.7} \\
+Vector & \texttt{\small AV:\allowbreak{}N/\allowbreak{}AC:\allowbreak{}H/\allowbreak{}PR:\allowbreak{}L/\allowbreak{}UI:\allowbreak{}N/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}L/\allowbreak{}I:\allowbreak{}L/\allowbreak{}A:\allowbreak{}N} \\
+CWE & CWE-1035 Vulnerable Third-Party Component \\
+OWASP & A06:2021 Vulnerable and Outdated Components \\
+Category & Vulnerable Dependency \\
+Location & \texttt{composer.\allowbreak{}lock:\allowbreak{}1} \\
+Found by & deps+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & Installed symfony/mime v6.4.30 (\textless{} 6.4.40). Reachable via the mailer path (registration/notification emails). \\
+Impact & Advisory-dependent MIME handling issue via the mail path. \\
+Reachability & Via mailer (registration/notification emails). \\
+Evidence & \texttt{\small composer.lock pins symfony/mime 6.4.30; advisory GHSA-qpmx-3rfj-7rhv.} \\
+Remediation & Upgrade symfony/mime to \textgreater{}=6.4.40.\newline\emph{Pattern:} Keep Symfony components on the patched 6.4 line. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+composer update symfony/mime
+\end{lstlisting}
+
+\clearpage
+\findtitle{Low}{dompdf/dompdf 3.1.4 vulnerable (6 CVEs, fixed 3.1.6)}{SCR-018}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{Low} \\
+CVSS & 3.1\quad\textbf{3.1} \\
+Vector & \texttt{\small AV:\allowbreak{}N/\allowbreak{}AC:\allowbreak{}H/\allowbreak{}PR:\allowbreak{}L/\allowbreak{}UI:\allowbreak{}N/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}L/\allowbreak{}I:\allowbreak{}N/\allowbreak{}A:\allowbreak{}N} \\
+CWE & CWE-1035 Vulnerable Third-Party Component \\
+OWASP & A06:2021 Vulnerable and Outdated Components \\
+Category & Vulnerable Dependency \\
+Location & \texttt{composer.\allowbreak{}lock:\allowbreak{}1} \\
+Found by & deps+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & Installed dompdf/dompdf v3.1.4 (\textless{} 3.1.6). dompdf is referenced on user-facing NGO paths (NGO/ProfileController.php, NGO/RenewController.php) as well as admin, so it is not dead code. Exploiting the specific CVEs requires attacker-controlled HTML/CSS/SVG reaching the renderer; Blade auto-escaping reduces (not eliminates) this. Not traced to a concrete injection sink in this review. \\
+Impact & Conditional; watch item alongside the mPDF SSRF/HTML-injection findings. \\
+Reachability & Conditional on user-controlled HTML reaching loadHtml(). \\
+Evidence & \texttt{\small composer.lock pins dompdf/dompdf 3.1.4; used in NGO/ProfileController.php, NGO/RenewController.php.} \\
+Remediation & Upgrade dompdf/dompdf to \textgreater{}=3.1.6 and confirm no raw/user HTML is passed to loadHtml().\newline\emph{Pattern:} Patch the renderer and keep user HTML out of it. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+composer require dompdf/dompdf:^3.1.6
+\end{lstlisting}
+
+\clearpage
+\findtitle{Low}{Outdated bundled jQuery 3.2.1 with known XSS advisories (CVE-2020-11022/11023)}{SCR-019}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Severity & \sevbadge{Low} \\
+CVSS & 3.1\quad\textbf{4.2} \\
+Vector & \texttt{\small AV:\allowbreak{}N/\allowbreak{}AC:\allowbreak{}H/\allowbreak{}PR:\allowbreak{}N/\allowbreak{}UI:\allowbreak{}R/\allowbreak{}S:\allowbreak{}U/\allowbreak{}C:\allowbreak{}L/\allowbreak{}I:\allowbreak{}L/\allowbreak{}A:\allowbreak{}N} \\
+CWE & CWE-1035 Vulnerable Third-Party Component, CWE-79 Cross-site Scripting \\
+OWASP & A06:2021 Vulnerable and Outdated Components \\
+Category & Vulnerable Dependency \\
+Location & \texttt{public/\allowbreak{}front/\allowbreak{}assets/\allowbreak{}js/\allowbreak{}jquery\_\allowbreak{}3.\allowbreak{}2.\allowbreak{}1.\allowbreak{}js:\allowbreak{}1} \\
+Found by & deps+verifier \\
+\bottomrule
+\end{tabularx}}
+\vspace{6pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Description & Bundled jQuery 3.2.1 (CVE-2020-11022/11023, fixed 3.5.0) is served by \textasciitilde{}10 blade views (admin DG view-application and front ministryView pages). Exploitation requires attacker-controlled HTML flowing into a jQuery DOM sink (.html() etc.); not traced to a concrete sink here. \\
+Impact & Component-hygiene finding; latent DOM-XSS if untrusted HTML reaches a jQuery manipulation sink. \\
+Reachability & Conditional on a jQuery HTML sink receiving untrusted input. \\
+Evidence & \texttt{\small public/front/assets/js/jquery\_3.2.1.js served by \textasciitilde{}10 blades (confirmed).} \\
+Remediation & Upgrade the bundled jQuery to \textgreater{}=3.5.1.\newline\emph{Pattern:} Keep front-end libraries patched; prefer .text() over .html() for untrusted data. \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{4pt}\noindent\textbf{Remediation (code)}\par
+\begin{lstlisting}
+// replace public/front/assets/js/jquery_3.2.1.js with jQuery 3.5.1+
+\end{lstlisting}
+
+\clearpage\section*{Dependency \& Supply-Chain Risks}
+{\renewcommand{\arraystretch}{1.25}%
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.24\textwidth} l >{\raggedright\arraybackslash}p{0.22\textwidth} l l@{}}
+\toprule\textbf{Package} & \textbf{Version} & \textbf{Advisory} & \textbf{Fixed} & \textbf{Sev}\\\midrule\endhead
+\texttt{\small laravel/\allowbreak{}framework} & \texttt{\small 9.52.21} & \texttt{\small CVE-2026-48019} & \texttt{\small 10.48.29} & \sevbadge{Medium}\\
+\texttt{\small phpoffice/\allowbreak{}phpspreadsheet} & \texttt{\small 1.30.2} & \texttt{\small GHSA-q4q6-r8wh-5cgh; GHSA-87m4-826x-3crx} & \texttt{\small 1.30.5} & \sevbadge{Low}\\
+\texttt{\small setasign/\allowbreak{}fpdi} & \texttt{\small 2.6.4} & \texttt{\small GHSA-2mgw-7q6p-8grg} & \texttt{\small 2.6.7} & \sevbadge{Low}\\
+\texttt{\small symfony/\allowbreak{}mime} & \texttt{\small 6.4.30} & \texttt{\small GHSA-qpmx-3rfj-7rhv} & \texttt{\small 6.4.40} & \sevbadge{Low}\\
+\texttt{\small dompdf/\allowbreak{}dompdf} & \texttt{\small 3.1.4} & \texttt{\small CVE-2026-59943/\allowbreak{}59942/\allowbreak{}59941/\allowbreak{}56722/\allowbreak{}55555/\allowbreak{}55554} & \texttt{\small 3.1.6} & \sevbadge{Low}\\
+\texttt{\small guzzlehttp/\allowbreak{}guzzle} & \texttt{\small 7.10.0} & \texttt{\small GHSA-v5mv-p594-2x33} & \texttt{\small 7.15.2} & \sevbadge{Low}\\
+\texttt{\small jquery (bundled)} & \texttt{\small 3.2.1} & \texttt{\small CVE-2020-11022; CVE-2020-11023} & \texttt{\small 3.5.1} & \sevbadge{Low}\\
+\bottomrule\end{longtable}}
+\clearpage\section*{Investigated \& Dismissed}
+\begin{itemize}[leftmargin=1.4em]
+\item \texttt{SCR-D01} — DISMISSED: phpspreadsheet 1.30.2 'critical' RCE advisories (GHSA-q4q6-r8wh-5cgh / GHSA-87m4-826x-3crx): Not exploitable as scored; upgrade to phpspreadsheet \textgreater{}=1.30.5 as hygiene.
+\item \texttt{SCR-D02} — DISMISSED: F6 'fail-open' JWT middleware: No security action; optionally return HTTP 401 instead of 200 for correctness.
+\item \texttt{SCR-D03} — DISMISSED: forge 'paid' state via unauthenticated Sonali IPN: No standalone action; residual issues tracked under SCR-013 and SCR-015.
+\item \texttt{SCR-D04} — DISMISSED: SQL injection (orderByRaw / DB::raw / selectRaw / whereRaw): No action; keep using parameter bindings for any future raw SQL.
+\item \texttt{SCR-D05} — DISMISSED: path traversal in file\_get\_contents(public\_path().\$dbValue) downloaders: No traversal action; authz fix tracked under SCR-007. Optionally realpath-contain as defense-in-depth.
+\item \texttt{SCR-D06} — DISMISSED: guzzlehttp/guzzle 7.10.0 host-check bypass (GHSA-v5mv-p594-2x33): Low priority; upgrade guzzle to \textgreater{}=7.15.2 during routine maintenance.
+\item \texttt{SCR-D07} — DISMISSED: unlink() arbitrary-delete (13 sinks): No action; keep delete paths derived from server-generated storage keys.
+\item \texttt{SCR-D08} — DISMISSED: ReDoS via non-literal regexp (7 SAST hits): No action.
+\item \texttt{SCR-D09} — DISMISSED: JavaScript XSS execution inside mPDF-rendered PDFs: No JS-XSS action; escaping fix tracked under SCR-006 and SCR-014.
+\item \texttt{SCR-D10} — DISMISSED: FdoneformController::ministryLetterAnswerStore upload: No action; this is the correct pattern the other upload sites should adopt.
+\item \texttt{SCR-D11} — DISMISSED: singleStaffDetailsInformationEexecutiveUpdate upload sink: No action; remove the dead code to reduce confusion.
+\item \texttt{SCR-D12} — DISMISSED (as standalone): 6-digit email-verification token: Hardening: add rate-limiting and short expiry to the email-verification code, or widen it.
+\end{itemize}
+\section*{References}
+CWE (\url{https://cwe.mitre.org/}), OWASP Top 10 (\url{https://owasp.org/Top10/}), CVSS 3.1 (\url{https://www.first.org/cvss/}).
+\end{document}
