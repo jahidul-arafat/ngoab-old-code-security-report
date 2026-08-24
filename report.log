@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025/Homebrew) (preloaded format=pdflatex 2025.3.15)  24 AUG 2026 13:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025/Homebrew) (preloaded format=pdflatex 2025.3.15)  24 AUG 2026 13:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -397,32 +397,75 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 skip.sty
 Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
 )
+(/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/tocloft/toc
+loft.sty
+Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
+Package tocloft Info: The document has section divisions on input line 51.
+\cftparskip=\skip76
+\cftbeforetoctitleskip=\skip77
+\cftaftertoctitleskip=\skip78
+\cftbeforepartskip=\skip79
+\cftpartnumwidth=\skip80
+\cftpartindent=\skip81
+\cftbeforesecskip=\skip82
+\cftsecindent=\skip83
+\cftsecnumwidth=\skip84
+\cftbeforesubsecskip=\skip85
+\cftsubsecindent=\skip86
+\cftsubsecnumwidth=\skip87
+\cftbeforesubsubsecskip=\skip88
+\cftsubsubsecindent=\skip89
+\cftsubsubsecnumwidth=\skip90
+\cftbeforeparaskip=\skip91
+\cftparaindent=\skip92
+\cftparanumwidth=\skip93
+\cftbeforesubparaskip=\skip94
+\cftsubparaindent=\skip95
+\cftsubparanumwidth=\skip96
+\cftbeforeloftitleskip=\skip97
+\cftafterloftitleskip=\skip98
+\cftbeforefigskip=\skip99
+\cftfigindent=\skip100
+\cftfignumwidth=\skip101
+\c@lofdepth=\count306
+\c@lotdepth=\count307
+\cftbeforelottitleskip=\skip102
+\cftafterlottitleskip=\skip103
+\cftbeforetabskip=\skip104
+\cfttabindent=\skip105
+\cfttabnumwidth=\skip106
+
+
+Package tocloft Warning: \@starttoc has already been redefined; tocloft bailing
+ out. on input line 1156.
+
+)
 (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/latex/l3backend/l
 3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count306
+\l__color_backend_stack_int=\count308
 \l__pdf_internal_box=\box63
 ) (scr-reviews/ngoab-main/report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -462,45 +505,51 @@ LaTeX Font Info:    ... okay on input line 38.
 (/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/tex/context/base/mkii
 /supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count307
+\scratchcounter=\count309
 \scratchdimen=\dimen185
 \scratchbox=\box64
-\nofMPsegments=\count308
-\nofMParguments=\count309
+\nofMPsegments=\count310
+\nofMParguments=\count311
 \everyMPshowfont=\toks27
-\MPscratchCnt=\count310
+\MPscratchCnt=\count312
 \MPscratchDim=\dimen186
-\MPnumerator=\count311
-\makeMPintoPDFobject=\count312
+\MPnumerator=\count313
+\makeMPintoPDFobject=\count314
 \everyMPtoPDFconversion=\toks28
 )
-\c@lstlisting=\count313
-Package hyperref Info: Link coloring OFF on input line 38.
+\c@lstlisting=\count315
+Package hyperref Info: Link coloring OFF on input line 41.
  (scr-reviews/ngoab-main/report.out) (scr-reviews/ngoab-main/report.out)
 \@outlinefile=\write3
 \openout3 = `report.out'.
 
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 49.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 49.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 49.
 
 
-[1{/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/map/pdftex/up
-dmap/pdftex.map}{/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts
-/enc/dvips/cm-super/cm-super-t1.enc}
+[1
+
+{/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/map/pdftex/updm
+ap/pdftex.map}{/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/e
+nc/dvips/cm-super/cm-super-t1.enc}] (scr-reviews/ngoab-main/report.toc)
+\tf@toc=\write4
+\openout4 = `report.toc'.
+
+
+
+[2
 
 ]
-
-[2]
 
 [3
 
-]
+] [4]
 
-[4
-
-]
-
-[5
-
-]
+[5]
 
 [6
 
@@ -513,12 +562,6 @@ dmap/pdftex.map}{/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts
 [8
 
 ]
-Overfull \hbox (0.74194pt too wide) in paragraph at lines 295--295
-\T1/cmr/bx/n/12 Unauthenticated IDOR: mass down-load of other NGOs' doc-u-ments
- and national-
- []
-
-
 
 [9
 
@@ -535,6 +578,12 @@ Overfull \hbox (0.74194pt too wide) in paragraph at lines 295--295
 [12
 
 ]
+Overfull \hbox (0.74194pt too wide) in paragraph at lines 318--318
+\T1/cmr/bx/n/12 Unauthenticated IDOR: mass down-load of other NGOs' doc-u-ments
+ and national-
+ []
+
+
 
 [13
 
@@ -556,7 +605,9 @@ Overfull \hbox (0.74194pt too wide) in paragraph at lines 295--295
 
 ]
 
-[18]
+[18
+
+]
 
 [19
 
@@ -569,26 +620,40 @@ Overfull \hbox (0.74194pt too wide) in paragraph at lines 295--295
 [21
 
 ]
-Overfull \hbox (25.0498pt too wide) in paragraph at lines 687--687
+
+[22]
+
+[23
+
+]
+
+[24
+
+]
+
+[25
+
+]
+Overfull \hbox (25.0498pt too wide) in paragraph at lines 710--710
 \T1/cmr/bx/n/12 Outdated bun-dled jQuery 3.2.1 with known XSS ad-vi-sories (CVE
 -2020-11022/11023)
  []
 
 
 
-[22
+[26
 
 ]
-Overfull \hbox (2.1408pt too wide) in paragraph at lines 723--723
+Overfull \hbox (2.1408pt too wide) in paragraph at lines 746--746
 []|\T1/cmtt/m/n/10 GHSA-q4q6-r8wh-5cgh; 
  []
 
 
 
-[23
+[27
 
 ]
-Overfull \hbox (11.46841pt too wide) in paragraph at lines 746--747
+Overfull \hbox (11.46841pt too wide) in paragraph at lines 769--770
 \T1/cmr/m/n/10.95 CWE ([]$\T1/cmtt/m/n/10.95 https : / / cwe . mitre . org/$[]\
 T1/cmr/m/n/10.95 ), OWASP Top 10 ([]$\T1/cmtt/m/n/10.95 https : / / owasp . org
  / Top10/$[]\T1/cmr/m/n/10.95 ), CVSS 3.1 ([]$\T1/cmtt/m/n/10.95 https :
@@ -596,7 +661,7 @@ T1/cmr/m/n/10.95 ), OWASP Top 10 ([]$\T1/cmtt/m/n/10.95 https : / / owasp . org
 
 
 
-[24
+[28
 
 {/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/enc/dvips/cm-su
 per/cm-super-ts1.enc}] (scr-reviews/ngoab-main/report.aux)
@@ -605,33 +670,37 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+(rerunfilecheck)             Checksum: 3106A589891554B6D9EB17DEB585685B;694.
  ) 
 Here is how much of TeX's memory you used:
- 12360 strings out of 473190
- 190526 string characters out of 5704335
- 674253 words of memory out of 5000000
- 35409 multiletter control sequences out of 15000+600000
- 569714 words of font info for 58 fonts, out of 8000000 for 9000
+ 12651 strings out of 473190
+ 195062 string characters out of 5704335
+ 679698 words of memory out of 5000000
+ 35686 multiletter control sequences out of 15000+600000
+ 571952 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,12n,79p,1235b,1067s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/
-cm-super/sfbx1095.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist
-/fonts/type1/public/cm-super/sfbx1200.pfb></opt/homebrew/Cellar/texlive/2025030
-8_1/share/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></opt/homebrew/Ce
-llar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.p
+cm-super/sfbx1000.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist
+/fonts/type1/public/cm-super/sfbx1095.pfb></opt/homebrew/Cellar/texlive/2025030
+8_1/share/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></opt/homebrew/Ce
+llar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/cm-super/sfbx1440.p
 fb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public
-/cm-super/sfrm1095.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dis
-t/fonts/type1/public/cm-super/sfrm1440.pfb></opt/homebrew/Cellar/texlive/202503
-08_1/share/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb></opt/homebrew/C
-ellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/cm-super/sftt0900.
+/cm-super/sfbx2488.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dis
+t/fonts/type1/public/cm-super/sfrm1000.pfb></opt/homebrew/Cellar/texlive/202503
+08_1/share/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></opt/homebrew/C
+ellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.
 pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/publi
-c/cm-super/sftt1000.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-di
-st/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on scr-reviews/ngoab-main/report.pdf (24 pages, 315180 bytes).
+c/cm-super/sfti1000.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-di
+st/fonts/type1/public/cm-super/sfti1095.pfb></opt/homebrew/Cellar/texlive/20250
+308_1/share/texmf-dist/fonts/type1/public/cm-super/sftt0900.pfb></opt/homebrew/
+Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/cm-super/sftt1000
+.pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/publ
+ic/cm-super/sftt1095.pfb>
+Output written on scr-reviews/ngoab-main/report.pdf (28 pages, 356243 bytes).
 PDF statistics:
- 243 PDF objects out of 1000 (max. 8388607)
- 194 compressed objects within 2 object streams
- 82 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 302 PDF objects out of 1000 (max. 8388607)
+ 242 compressed objects within 3 object streams
+ 86 named destinations out of 1000 (max. 500000)
+ 49 words of extra memory for PDF output out of 10000 (max. 10000000)
 

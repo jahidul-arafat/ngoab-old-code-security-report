@@ -30,33 +30,55 @@
 \pagestyle{fancy}\fancyhf{}
 \lhead{\small ngoab-main}\rhead{\small Security Review}\cfoot{\thepage}
 \setlength{\headheight}{14pt}
+\usepackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\Large\bfseries}
+\setcounter{tocdepth}{1}
 
 \newcommand{\sevbadge}[1]{\textbf{\textcolor{sev#1}{#1}}}
 \newcommand{\findtitle}[3]{\noindent{\large\bfseries #2}\hfill{\normalsize\texttt{#3}}\\[2pt]
  {\sevbadge{#1}}\par\vspace{4pt}}
 
 \begin{document}
-\begin{center}{\LARGE\bfseries Source-Code Security Review}\\[0.5em]{\Large ngoab-main}\end{center}\vspace{0.5em}
-{\renewcommand{\arraystretch}{1.35}%
-\begin{tabularx}{\textwidth}{L R}
-\toprule
-Stack & PHP \textasciicircum{}8.0, Laravel 9.52.21, tymon/jwt-auth 2.2.1 (HS256) mobile/API, MySQL + Redis, exceptio/laravel-sonali-payment 1.0 (Sonali Bank SPG), mPDF 8.2.7 + barryvdh/laravel-dompdf 3.1.4 + niklasravnsborg/laravel-pdf 4.1.0, maatwebsite/excel 3.1 + phpoffice/phpspreadsheet 1.30.2, opcodesio/log-viewer 3.21.1, Laravel Mix, Docker Compose \\
-Commit & \texttt{not a git repository (working tree only)} \\
-Date & 2026-08-24 \\
-Reviewer & Aubria \\
-Team & SCR source-code vulnerability review team \\
-\bottomrule
-\end{tabularx}}
-
-\vspace{6pt}\section*{Summary of Findings}
+\thispagestyle{empty}
+\vspace*{2.2cm}\begin{center}
+{\small\bfseries\color{sevLow}\uppercase{Source-Code Security Assessment}}\\[0.4cm]
+\rule{\textwidth}{1.2pt}\\[0.5cm]
+{\Huge\bfseries ngoab-main}\\[0.35cm]
+{\large Static Application Security Review \& Research Report}\\[0.3cm]
+\rule{\textwidth}{1.2pt}\end{center}\vspace{1.4cm}
 \begin{center}\begin{tabular}{lr}\toprule\textbf{Severity} & \textbf{Count}\\\midrule
 \sevbadge{Critical} & 3 \\
 \sevbadge{High} & 6 \\
 \sevbadge{Medium} & 5 \\
 \sevbadge{Low} & 5 \\
 \sevbadge{Info} & 0 \\
-\midrule\textbf{Total} & \textbf{19}\\\bottomrule\end{tabular}\end{center}
-\section*{Scope \& Coverage}
+\midrule\textbf{Total confirmed} & \textbf{19}\\\bottomrule\end{tabular}\end{center}
+\vfill
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Stack & PHP \textasciicircum{}8.0, Laravel 9.52.21, tymon/jwt-auth 2.2.1 (HS256) mobile/API, MySQL + Redis, exceptio/laravel-sonali-payment 1.0 (Sonali Bank SPG), mPDF 8.2.7 + barryvdh/laravel-dompdf 3.1.4 + niklasravnsborg/laravel-pdf 4.1.0, maatwebsite/excel 3.1 + phpoffice/phpspreadsheet 1.30.2, opcodesio/log-viewer 3.21.1, Laravel Mix, Docker Compose \\
+Assessment date & 2026-08-24 \\
+Report generated & 2026-08-24 13:29 \\
+Reviewer & Aubria \\
+Team & SCR source-code vulnerability review team \\
+Commit & \texttt{not a git repository (working tree only)} \\
+\bottomrule
+\end{tabularx}}
+
+\begin{center}\small\itshape Confidential — for the recipient team only.\end{center}
+\clearpage
+\thispagestyle{fancy}\tableofcontents\clearpage
+\section*{Objective}\addcontentsline{toc}{section}{Objective}
+Identify security vulnerabilities in the target source code through static analysis, assess their real-world exploitability, and provide prioritized, actionable remediation guidance.\par\vspace{4pt}
+\noindent\textbf{Goal.}\ Deliver a defensible, reproducible assessment suitable for both engineering remediation and security research, with every finding traced to a concrete code location and mapped to CWE / OWASP taxonomies.
+\section*{Executive Summary}\addcontentsline{toc}{section}{Executive Summary}
+This assessment of ngoab-main identified 19 confirmed finding(s): 3 Critical, 6 High, 5 Medium, 5 Low. The overall residual risk posture is assessed as critical, driven primarily by the highest-severity issues. A further 12 candidate(s) were investigated and dismissed with code evidence, reducing false-positive noise.\par
+Priority issues: SCR-001 (Critical) Unauthenticated PDF/PHP-polyglot upload -\textgreater{} remote code execution; SCR-002 (Critical) Unauthenticated arbitrary password reset (no token/ownership) -\textgreater{} account takeover; SCR-003 (Critical) Tokenless password reset keyed on sequential user id -\textgreater{} mass account takeover.\par
+All findings were produced by static analysis only (no code was executed against the target) and verified for reachability before inclusion. Severity is scored with CVSS 3.1 and mapped to CWE and the OWASP Top 10.\par
+\section*{Methodology}\addcontentsline{toc}{section}{Methodology}
+The review was conducted by a multi-agent pipeline. A reconnaissance stage detected the technology stack and mapped the attack surface; specialist stages then analyzed injection, access-control, and dependency/supply-chain risks in parallel against that map. A verification stage triaged every candidate for reachability and exploitability, culling false positives with code evidence and assigning CVSS 3.1 scores. Analysis was strictly static: the target's own code was read and modeled, never executed. This report is rendered deterministically from a single machine-readable findings record.
+\section*{Scope \& Coverage}\addcontentsline{toc}{section}{Scope \& Coverage}
 {\renewcommand{\arraystretch}{1.35}%
 \begin{tabularx}{\textwidth}{L R}
 \toprule
@@ -66,7 +88,7 @@ Notes & Static analysis only; no code executed. Three parallel auth systems (ses
 \bottomrule
 \end{tabularx}}
 
-\section*{Findings Index}
+\section*{Findings Index}\addcontentsline{toc}{section}{Findings Index}
 {\renewcommand{\arraystretch}{1.25}%
 \begin{longtable}{@{}l l l >{\raggedright\arraybackslash}p{0.52\textwidth}@{}}
 \toprule \textbf{ID} & \textbf{Sev} & \textbf{CVSS} & \textbf{Title}\\\midrule\endhead
@@ -90,6 +112,7 @@ Notes & Static analysis only; no code executed. Three parallel auth systems (ses
 \texttt{SCR-018} & \sevbadge{Low} & 3.1 & dompdf/dompdf 3.1.4 vulnerable (6 CVEs, fixed 3.1.6)\\
 \texttt{SCR-019} & \sevbadge{Low} & 4.2 & Outdated bundled jQuery 3.2.1 with known XSS advisories (CVE-2020-11022/11023)\\
 \bottomrule\end{longtable}}
+\clearpage\section*{Detailed Findings}\addcontentsline{toc}{section}{Detailed Findings}
 \clearpage
 \findtitle{Critical}{Unauthenticated PDF/PHP-polyglot upload -\textgreater{} remote code execution}{SCR-001}
 {\renewcommand{\arraystretch}{1.35}%
