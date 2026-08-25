@@ -1,0 +1,45 @@
+== 1. ensure repo is on GitLab ==
+project exists on GitLab: jza0145/ngoab-main
+== 2. enable scanners (commit CI) ==
+  $ git add .gitlab-ci.yml
+  .gitlab-ci.yml unchanged; running a pipeline explicitly
+== 3. wait for pipeline ==
+  pipeline 2788509629: created (0s)
+  pipeline 2788509629: running (20s)
+  pipeline 2788509629: running (40s)
+  pipeline 2788509629: running (60s)
+  pipeline 2788509629: success (81s)
+   pipeline finished: success
+== 4. fetch artifacts ==
+  $ /Applications/Xcode.app/Contents/Developer/usr/bin/python3 /Users/jarotball/.openclaw-source-code-review/workspace-aubria/bin/gitlab_scan.py fetch --outdir /Users/jarotball/scr-reviews/ngoab-main/gitlab-artifacts
+    downloaded:
+      /Users/jarotball/scr-reviews/ngoab-main/gitlab-artifacts/dependency_scanning_free__trivy-dep-report.json
+      /Users/jarotball/scr-reviews/ngoab-main/gitlab-artifacts/kics-iac-sast__gl-sast-report.json
+      /Users/jarotball/scr-reviews/ngoab-main/gitlab-artifacts/secret_detection__gl-secret-detection-report.json
+      /Users/jarotball/scr-reviews/ngoab-main/gitlab-artifacts/semgrep-sast__gl-sast-report.json
+== 5. ingest -> gitlab-findings.json ==
+  $ /Applications/Xcode.app/Contents/Developer/usr/bin/python3 /Users/jarotball/.openclaw-source-code-review/workspace-aubria/bin/gitlab_ingest.py /Users/jarotball/scr-reviews/ngoab-main/gitlab-artifacts
+    wrote /Users/jarotball/scr-reviews/ngoab-main/gitlab-artifacts/gitlab-findings.json
+      kics-iac-sast__gl-sast-report.json: 70 raw -> 70 findings, 0 deps (gitlab-sast)
+      secret_detection__gl-secret-detection-report.json: 0 raw -> 0 findings, 0 deps (gitlab-secret)
+      semgrep-sast__gl-sast-report.json: 21 raw -> 21 findings, 0 deps (gitlab-sast)
+      dependency_scanning_free__trivy-dep-report.json: 50 vulns -> 50 deps (trivy)
+    TOTAL: 91 candidate findings, 50 dependency items (all status=candidate; hand to verifier to confirm + dedup vs SAST)
+== 6. merge into findings.json ==
+  $ /Applications/Xcode.app/Contents/Developer/usr/bin/python3 /Users/jarotball/.openclaw-source-code-review/workspace-aubria/bin/scr_merge.py /Users/jarotball/scr-reviews/ngoab-main/findings.json /Users/jarotball/scr-reviews/ngoab-main/gitlab-artifacts/gitlab-findings.json
+    merged -> /Users/jarotball/scr-reviews/ngoab-main/findings.json
+      dependencies added (GitLab/Trivy, deduped): 0
+      IaC findings clustered: 70 -> 13 rule types
+      bundled-JS library flags: 21
+      code findings CONFIRMED by both SCR + GitLab: 0
+      GitLab-only code findings added as candidates: 0
+== 7. render PDF + HTML ==
+  $ /Applications/Xcode.app/Contents/Developer/usr/bin/python3 /Users/jarotball/.openclaw-source-code-review/workspace-aubria/bin/scr_render.py /Users/jarotball/scr-reviews/ngoab-main/findings.json
+    wrote /Users/jarotball/scr-reviews/ngoab-main/report.tex
+    wrote /Users/jarotball/scr-reviews/ngoab-main/report.pdf
+  $ /Applications/Xcode.app/Contents/Developer/usr/bin/python3 /Users/jarotball/.openclaw-source-code-review/workspace-aubria/bin/scr_render_html.py /Users/jarotball/scr-reviews/ngoab-main/findings.json
+    wrote /Users/jarotball/scr-reviews/ngoab-main/report.html
+
+DONE. Updated reports for ngoab-main:
+  /Users/jarotball/scr-reviews/ngoab-main/report.pdf
+  /Users/jarotball/scr-reviews/ngoab-main/report.html

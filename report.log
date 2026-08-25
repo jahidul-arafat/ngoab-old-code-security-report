@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025/Homebrew) (preloaded format=pdflatex 2025.3.15)  24 AUG 2026 13:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025/Homebrew) (preloaded format=pdflatex 2025.3.15)  25 AUG 2026 04:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -445,7 +445,7 @@ Package tocloft Warning: \@starttoc has already been redefined; tocloft bailing
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count308
 \l__pdf_internal_box=\box63
-) (scr-reviews/ngoab-main/report.aux)
+) (/Users/jarotball/scr-reviews/ngoab-main/report.aux)
 \openout1 = `report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
@@ -519,7 +519,8 @@ LaTeX Font Info:    ... okay on input line 41.
 )
 \c@lstlisting=\count315
 Package hyperref Info: Link coloring OFF on input line 41.
- (scr-reviews/ngoab-main/report.out) (scr-reviews/ngoab-main/report.out)
+ (/Users/jarotball/scr-reviews/ngoab-main/report.out)
+(/Users/jarotball/scr-reviews/ngoab-main/report.out)
 \@outlinefile=\write3
 \openout3 = `report.out'.
 
@@ -535,7 +536,8 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 {/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/map/pdftex/updm
 ap/pdftex.map}{/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/e
-nc/dvips/cm-super/cm-super-t1.enc}] (scr-reviews/ngoab-main/report.toc)
+nc/dvips/cm-super/cm-super-t1.enc}]
+(/Users/jarotball/scr-reviews/ngoab-main/report.toc)
 \tf@toc=\write4
 \openout4 = `report.toc'.
 
@@ -644,16 +646,30 @@ Overfull \hbox (25.0498pt too wide) in paragraph at lines 710--710
 [26
 
 ]
-Overfull \hbox (2.1408pt too wide) in paragraph at lines 746--746
-[]|\T1/cmtt/m/n/10 GHSA-q4q6-r8wh-5cgh; 
- []
-
-
 
 [27
 
 ]
-Overfull \hbox (11.46841pt too wide) in paragraph at lines 769--770
+Overfull \hbox (591.54015pt too wide) in alignment at lines 774--775
+ [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (2.1408pt too wide) in paragraph at lines 777--777
+[]|\T1/cmtt/m/n/10 GHSA-q4q6-r8wh-5cgh; 
+ []
+
+
+Overfull \hbox (591.54015pt too wide) in alignment at lines 775--832
+ [] [] [] [] [] 
+ []
+
+[28
+
+]
+
+[29]
+Overfull \hbox (11.46841pt too wide) in paragraph at lines 849--850
 \T1/cmr/m/n/10.95 CWE ([]$\T1/cmtt/m/n/10.95 https : / / cwe . mitre . org/$[]\
 T1/cmr/m/n/10.95 ), OWASP Top 10 ([]$\T1/cmtt/m/n/10.95 https : / / owasp . org
  / Top10/$[]\T1/cmr/m/n/10.95 ), CVSS 3.1 ([]$\T1/cmtt/m/n/10.95 https :
@@ -661,22 +677,22 @@ T1/cmr/m/n/10.95 ), OWASP Top 10 ([]$\T1/cmtt/m/n/10.95 https : / / owasp . org
 
 
 
-[28
+[30
 
 {/opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/enc/dvips/cm-su
-per/cm-super-ts1.enc}] (scr-reviews/ngoab-main/report.aux)
+per/cm-super-ts1.enc}] (/Users/jarotball/scr-reviews/ngoab-main/report.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 3106A589891554B6D9EB17DEB585685B;694.
+(rerunfilecheck)             Checksum: 3F87B5BFB0A13B53B75B6D0F6E693870;882.
  ) 
 Here is how much of TeX's memory you used:
- 12651 strings out of 473190
- 195062 string characters out of 5704335
- 679698 words of memory out of 5000000
- 35686 multiletter control sequences out of 15000+600000
+ 12655 strings out of 473190
+ 195287 string characters out of 5704335
+ 679756 words of memory out of 5000000
+ 35688 multiletter control sequences out of 15000+600000
  571952 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,12n,79p,1235b,1067s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -697,10 +713,11 @@ st/fonts/type1/public/cm-super/sfti1095.pfb></opt/homebrew/Cellar/texlive/20250
 Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/public/cm-super/sftt1000
 .pfb></opt/homebrew/Cellar/texlive/20250308_1/share/texmf-dist/fonts/type1/publ
 ic/cm-super/sftt1095.pfb>
-Output written on scr-reviews/ngoab-main/report.pdf (28 pages, 356243 bytes).
+Output written on /Users/jarotball/scr-reviews/ngoab-main/report.pdf (30 pages,
+ 360801 bytes).
 PDF statistics:
- 302 PDF objects out of 1000 (max. 8388607)
- 242 compressed objects within 3 object streams
- 86 named destinations out of 1000 (max. 500000)
- 49 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 315 PDF objects out of 1000 (max. 8388607)
+ 253 compressed objects within 3 object streams
+ 89 named destinations out of 1000 (max. 500000)
+ 57 words of extra memory for PDF output out of 10000 (max. 10000000)
 

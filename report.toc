@@ -4,3 +4,4 @@
 \contentsline {section}{Scope \& Coverage}{4}{Doc-Start}%
 \contentsline {section}{Findings Index}{4}{Doc-Start}%
 \contentsline {section}{Detailed Findings}{6}{table.1}%
+\contentsline {section}{GitLab CI Scan Integration}{27}{lstnumber.-19.1}%

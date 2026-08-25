@@ -59,7 +59,7 @@
 \toprule
 Stack & PHP \textasciicircum{}8.0, Laravel 9.52.21, tymon/jwt-auth 2.2.1 (HS256) mobile/API, MySQL + Redis, exceptio/laravel-sonali-payment 1.0 (Sonali Bank SPG), mPDF 8.2.7 + barryvdh/laravel-dompdf 3.1.4 + niklasravnsborg/laravel-pdf 4.1.0, maatwebsite/excel 3.1 + phpoffice/phpspreadsheet 1.30.2, opcodesio/log-viewer 3.21.1, Laravel Mix, Docker Compose \\
 Assessment date & 2026-08-24 \\
-Report generated & 2026-08-24 13:29 \\
+Report generated & 2026-08-25 04:51 \\
 Reviewer & Aubria \\
 Team & SCR source-code vulnerability review team \\
 Commit & \texttt{not a git repository (working tree only)} \\
@@ -738,6 +738,37 @@ Remediation & Upgrade the bundled jQuery to \textgreater{}=3.5.1.\newline\emph{P
 // replace public/front/assets/js/jquery_3.2.1.js with jQuery 3.5.1+
 \end{lstlisting}
 
+\clearpage\section*{GitLab CI Scan Integration}\addcontentsline{toc}{section}{GitLab CI Scan Integration}
+An independent GitLab CI pipeline (SAST, Secret Detection, IaC, and Trivy dependency scanning) was executed and cross-referenced against this review. Findings corroborated by two independent tools are the highest-confidence items.\par\vspace{4pt}
+{\renewcommand{\arraystretch}{1.35}%
+\begin{tabularx}{\textwidth}{L R}
+\toprule
+Cross-tool confirmed & 0 \\
+Dependencies added (Trivy) & 0 \\
+IaC hardening items & 70 \\
+Outdated JS flags & 21 \\
+GitLab-only candidates & 0 \\
+\bottomrule
+\end{tabularx}}
+
+\noindent\textbf{Infrastructure hardening (clustered):}
+{\renewcommand{\arraystretch}{1.2}%
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.7\textwidth} l l@{}}
+\toprule\textbf{Rule} & \textbf{Count} & \textbf{Sev}\\\midrule\endhead
+{}IaC: Apt Get Install Pin Version Not Defined & 16 & \sevbadge{Medium}\\
+{}IaC: Shared Volumes Between Containers & 9 & \sevbadge{Info}\\
+{}IaC: Security Opt Not Set & 7 & \sevbadge{Medium}\\
+{}IaC: Healthcheck Not Set & 7 & \sevbadge{Medium}\\
+{}IaC: Memory Not Limited & 7 & \sevbadge{Medium}\\
+{}IaC: Container Capabilities Unrestricted & 7 & \sevbadge{Medium}\\
+{}IaC: Cpus Not Limited & 7 & \sevbadge{Info}\\
+{}IaC: Container Traffic Not Bound To Host Interface & 4 & \sevbadge{Medium}\\
+{}IaC: Privileged Ports Mapped In Container & 2 & \sevbadge{Medium}\\
+{}IaC: Multiple RUN, ADD, COPY, Instructions Listed & 1 & \sevbadge{Info}\\
+{}IaC: APT-GET Not Avoiding Additional Packages & 1 & \sevbadge{Info}\\
+{}IaC: Healthcheck Instruction Missing & 1 & \sevbadge{Info}\\
+{}IaC: Apt Get Install Lists Were Not Deleted & 1 & \sevbadge{Info}\\
+\bottomrule\end{longtable}}
 \clearpage\section*{Dependency \& Supply-Chain Risks}
 {\renewcommand{\arraystretch}{1.25}%
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.24\textwidth} l >{\raggedright\arraybackslash}p{0.22\textwidth} l l@{}}
@@ -749,6 +780,55 @@ Remediation & Upgrade the bundled jQuery to \textgreater{}=3.5.1.\newline\emph{P
 \texttt{\small dompdf/\allowbreak{}dompdf} & \texttt{\small 3.1.4} & \texttt{\small CVE-2026-59943/\allowbreak{}59942/\allowbreak{}59941/\allowbreak{}56722/\allowbreak{}55555/\allowbreak{}55554} & \texttt{\small 3.1.6} & \sevbadge{Low}\\
 \texttt{\small guzzlehttp/\allowbreak{}guzzle} & \texttt{\small 7.10.0} & \texttt{\small GHSA-v5mv-p594-2x33} & \texttt{\small 7.15.2} & \sevbadge{Low}\\
 \texttt{\small jquery (bundled)} & \texttt{\small 3.2.1} & \texttt{\small CVE-2020-11022; CVE-2020-11023} & \texttt{\small 3.5.1} & \sevbadge{Low}\\
+\texttt{\small dompdf/\allowbreak{}dompdf} & \texttt{\small v3.1.4} & \texttt{\small CVE-2026-56722} & \texttt{\small 3.1.6} & \sevbadge{Medium}\\
+\texttt{\small dompdf/\allowbreak{}dompdf} & \texttt{\small v3.1.4} & \texttt{\small CVE-2026-59941} & \texttt{\small 3.1.6} & \sevbadge{Medium}\\
+\texttt{\small dompdf/\allowbreak{}dompdf} & \texttt{\small v3.1.4} & \texttt{\small CVE-2026-59942} & \texttt{\small 3.1.6} & \sevbadge{Medium}\\
+\texttt{\small dompdf/\allowbreak{}dompdf} & \texttt{\small v3.1.4} & \texttt{\small CVE-2026-59943} & \texttt{\small 3.1.6} & \sevbadge{Medium}\\
+\texttt{\small dompdf/\allowbreak{}dompdf} & \texttt{\small v3.1.4} & \texttt{\small CVE-2026-55554} & \texttt{\small 3.1.6} & \sevbadge{Low}\\
+\texttt{\small dompdf/\allowbreak{}dompdf} & \texttt{\small v3.1.4} & \texttt{\small CVE-2026-55555} & \texttt{\small 3.1.6} & \sevbadge{Low}\\
+\texttt{\small guzzlehttp/\allowbreak{}guzzle} & \texttt{\small 7.10.0} & \texttt{\small CVE-2026-69246} & \texttt{\small 7.15.2, 8.0.1} & \sevbadge{High}\\
+\texttt{\small guzzlehttp/\allowbreak{}guzzle} & \texttt{\small 7.10.0} & \texttt{\small CVE-2026-55568} & \texttt{\small 7.12.1} & \sevbadge{Medium}\\
+\texttt{\small guzzlehttp/\allowbreak{}guzzle} & \texttt{\small 7.10.0} & \texttt{\small CVE-2026-55767} & \texttt{\small 7.12.1} & \sevbadge{Medium}\\
+\texttt{\small guzzlehttp/\allowbreak{}guzzle} & \texttt{\small 7.10.0} & \texttt{\small CVE-2026-59883} & \texttt{\small 7.12.3} & \sevbadge{Medium}\\
+\texttt{\small guzzlehttp/\allowbreak{}guzzle} & \texttt{\small 7.10.0} & \texttt{\small CVE-2026-67339} & \texttt{\small 7.14.2} & \sevbadge{Medium}\\
+\texttt{\small guzzlehttp/\allowbreak{}guzzle} & \texttt{\small 7.10.0} & \texttt{\small CVE-2026-67353} & \texttt{\small 7.15.1} & \sevbadge{Medium}\\
+\texttt{\small guzzlehttp/\allowbreak{}guzzle} & \texttt{\small 7.10.0} & \texttt{\small CVE-2026-67354} & \texttt{\small 7.15.1} & \sevbadge{Medium}\\
+\texttt{\small guzzlehttp/\allowbreak{}guzzle} & \texttt{\small 7.10.0} & \texttt{\small CVE-2026-67355} & \texttt{\small 7.15.1} & \sevbadge{Medium}\\
+\texttt{\small guzzlehttp/\allowbreak{}guzzle} & \texttt{\small 7.10.0} & \texttt{\small CVE-2026-69245} & \texttt{\small 7.15.2, 8.0.1} & \sevbadge{Medium}\\
+\texttt{\small guzzlehttp/\allowbreak{}psr7} & \texttt{\small 2.8.0} & \texttt{\small CVE-2026-48998} & \texttt{\small 2.10.2} & \sevbadge{Medium}\\
+\texttt{\small guzzlehttp/\allowbreak{}psr7} & \texttt{\small 2.8.0} & \texttt{\small CVE-2026-49214} & \texttt{\small 2.10.2} & \sevbadge{Medium}\\
+\texttt{\small guzzlehttp/\allowbreak{}psr7} & \texttt{\small 2.8.0} & \texttt{\small CVE-2026-55766} & \texttt{\small 2.12.1} & \sevbadge{Medium}\\
+\texttt{\small guzzlehttp/\allowbreak{}psr7} & \texttt{\small 2.8.0} & \texttt{\small CVE-2026-59882} & \texttt{\small 2.12.3} & \sevbadge{Medium}\\
+\texttt{\small laravel/\allowbreak{}framework} & \texttt{\small v9.52.21} & \texttt{\small GHSA-5vg9-5847-vvmq} & \texttt{\small 13.10.0, 12.60.0} & \sevbadge{High}\\
+\texttt{\small laravel/\allowbreak{}framework} & \texttt{\small v9.52.21} & \texttt{\small CVE-2025-27515} & \texttt{\small 12.1.1, 11.44.1, 10.48.29} & \sevbadge{Medium}\\
+\texttt{\small laravel/\allowbreak{}framework} & \texttt{\small v9.52.21} & \texttt{\small GHSA-crmm-hgp2-wgrp} & \texttt{\small 13.12.0, 12.61.1} & \sevbadge{Medium}\\
+\texttt{\small league/\allowbreak{}commonmark} & \texttt{\small 2.8.0} & \texttt{\small CVE-2026-71488} & \texttt{\small 2.9.0} & \sevbadge{High}\\
+\texttt{\small league/\allowbreak{}commonmark} & \texttt{\small 2.8.0} & \texttt{\small GHSA-g2gp-3wwq-f4ph} & \texttt{\small 2.9.0} & \sevbadge{High}\\
+\texttt{\small league/\allowbreak{}commonmark} & \texttt{\small 2.8.0} & \texttt{\small GHSA-jfm3-95jq-q3rf} & \texttt{\small 2.9.0} & \sevbadge{High}\\
+\texttt{\small league/\allowbreak{}commonmark} & \texttt{\small 2.8.0} & \texttt{\small GHSA-mh25-x5hq-wrqp} & \texttt{\small 2.9.0} & \sevbadge{High}\\
+\texttt{\small league/\allowbreak{}commonmark} & \texttt{\small 2.8.0} & \texttt{\small CVE-2026-30838} & \texttt{\small 2.8.1} & \sevbadge{Medium}\\
+\texttt{\small league/\allowbreak{}commonmark} & \texttt{\small 2.8.0} & \texttt{\small CVE-2026-33347} & \texttt{\small 2.8.2} & \sevbadge{Medium}\\
+\texttt{\small league/\allowbreak{}commonmark} & \texttt{\small 2.8.0} & \texttt{\small CVE-2026-71478} & \texttt{\small 2.9.0} & \sevbadge{Medium}\\
+\texttt{\small league/\allowbreak{}commonmark} & \texttt{\small 2.8.0} & \texttt{\small GHSA-mj63-m3rc-8ppr} & \texttt{\small 2.9.0} & \sevbadge{Medium}\\
+\texttt{\small phpoffice/\allowbreak{}phpspreadsheet} & \texttt{\small 1.30.2} & \texttt{\small CVE-2026-34084} & \texttt{\small 5.6.0, 3.10.4, 2.4.4, 2.1.15, 1.30.3} & \sevbadge{Critical}\\
+\texttt{\small phpoffice/\allowbreak{}phpspreadsheet} & \texttt{\small 1.30.2} & \texttt{\small CVE-2026-45034} & \texttt{\small 1.30.5} & \sevbadge{Critical}\\
+\texttt{\small phpoffice/\allowbreak{}phpspreadsheet} & \texttt{\small 1.30.2} & \texttt{\small CVE-2026-40863} & \texttt{\small 5.7.0, 3.10.5, 2.4.5, 2.1.16, 1.30.4} & \sevbadge{High}\\
+\texttt{\small phpoffice/\allowbreak{}phpspreadsheet} & \texttt{\small 1.30.2} & \texttt{\small CVE-2026-40902} & \texttt{\small 5.7.0, 3.10.5, 2.4.5, 2.1.16, 1.30.4} & \sevbadge{High}\\
+\texttt{\small phpoffice/\allowbreak{}phpspreadsheet} & \texttt{\small 1.30.2} & \texttt{\small CVE-2026-59931} & \texttt{\small 5.8.1, 3.10.7, 2.4.7, 2.1.18, 1.30.6} & \sevbadge{High}\\
+\texttt{\small phpoffice/\allowbreak{}phpspreadsheet} & \texttt{\small 1.30.2} & \texttt{\small CVE-2026-59932} & \texttt{\small 5.8.1, 3.10.7, 2.4.7, 2.1.18, 1.30.6} & \sevbadge{High}\\
+\texttt{\small phpoffice/\allowbreak{}phpspreadsheet} & \texttt{\small 1.30.2} & \texttt{\small CVE-2026-59933} & \texttt{\small 5.8.1, 3.10.7, 2.4.7, 2.1.18, 1.30.6} & \sevbadge{High}\\
+\texttt{\small phpoffice/\allowbreak{}phpspreadsheet} & \texttt{\small 1.30.2} & \texttt{\small CVE-2026-35453} & \texttt{\small 5.7.0, 3.10.5, 2.4.5, 2.1.16, 1.30.4} & \sevbadge{Medium}\\
+\texttt{\small phpoffice/\allowbreak{}phpspreadsheet} & \texttt{\small 1.30.2} & \texttt{\small CVE-2026-40296} & \texttt{\small 5.7.0, 3.10.5, 2.4.5, 2.1.16, 1.30.4} & \sevbadge{Medium}\\
+\texttt{\small psy/\allowbreak{}psysh} & \texttt{\small v0.12.18} & \texttt{\small CVE-2026-25129} & \texttt{\small 0.12.19, 0.11.23} & \sevbadge{Medium}\\
+\texttt{\small setasign/\allowbreak{}fpdi} & \texttt{\small v2.6.4} & \texttt{\small CVE-2026-45802} & \texttt{\small 2.6.7} & \sevbadge{Medium}\\
+\texttt{\small symfony/\allowbreak{}http-foundation} & \texttt{\small v6.4.31} & \texttt{\small CVE-2026-48736} & \texttt{\small 8.0.13, 6.4.41, 7.1.0, 7.2.0, 7.3.0, 7.4.0, 7.4.13} & \sevbadge{High}\\
+\texttt{\small symfony/\allowbreak{}mailer} & \texttt{\small v6.4.31} & \texttt{\small CVE-2026-45068} & \texttt{\small 3.0.0, 5.3.0, 7.1.0, 7.4.12, 4.0.0, 5.1.0, 5.2.0, 5.4.52, 6.1.0, 6.4.0, 8.0.12, 5.4.0, 6.2.0, 7.2.0, 7.4.0, 5.0.0, 6.3.0, 6.4.40, 7.3.0} & \sevbadge{High}\\
+\texttt{\small symfony/\allowbreak{}mime} & \texttt{\small v6.4.30} & \texttt{\small CVE-2026-45067} & \texttt{\small 7.1.0, 4.0.0, 5.2.0, 6.4.40, 7.3.0, 8.0.12, 7.4.12, 5.0.0, 5.4.52, 6.1.0, 6.2.0, 6.3.0, 7.4.0, 3.0.0, 5.1.0, 5.3.0, 5.4.0, 6.4.0, 7.2.0} & \sevbadge{High}\\
+\texttt{\small symfony/\allowbreak{}mime} & \texttt{\small v6.4.30} & \texttt{\small CVE-2026-45070} & \texttt{\small 5.4.52, 6.1.0, 6.3.0, 7.2.0, 3.0.0, 5.0.0, 6.4.0, 6.4.40, 7.1.0, 7.4.0, 7.4.12, 8.0.12, 5.3.0, 5.4.0, 5.1.0, 6.2.0, 7.3.0, 4.0.0, 5.2.0} & \sevbadge{Medium}\\
+\texttt{\small symfony/\allowbreak{}polyfill-intl-idn} & \texttt{\small v1.33.0} & \texttt{\small CVE-2026-46644} & \texttt{\small 1.38.1} & \sevbadge{Low}\\
+\texttt{\small symfony/\allowbreak{}process} & \texttt{\small v6.4.31} & \texttt{\small CVE-2026-24739} & \texttt{\small 5.4.51, 6.4.33, 7.3.11, 7.4.5, 8.0.5} & \sevbadge{Medium}\\
+\texttt{\small symfony/\allowbreak{}routing} & \texttt{\small v6.4.30} & \texttt{\small CVE-2026-45065} & \texttt{\small 7.4.0, 8.0.12, 5.0.0, 5.4.0, 6.2.0, 7.4.12, 4.0.0, 6.3.0, 7.3.0, 6.4.40, 3.0.0, 5.1.0, 5.4.52, 6.1.0, 6.4.0, 5.2.0, 5.3.0, 7.1.0, 7.2.0} & \sevbadge{Medium}\\
+\texttt{\small symfony/\allowbreak{}routing} & \texttt{\small v6.4.30} & \texttt{\small CVE-2026-48784} & \texttt{\small 4.0.0, 5.0.0, 6.4.41, 7.3.0, 8.0.13, 5.4.53, 6.1.0, 6.4.0, 5.2.0, 5.3.0, 5.4.0, 6.3.0, 7.1.0, 7.2.0, 3.0.0, 5.1.0, 6.2.0, 7.4.0, 7.4.13} & \sevbadge{Medium}\\
 \bottomrule\end{longtable}}
 \clearpage\section*{Investigated \& Dismissed}
 \begin{itemize}[leftmargin=1.4em]

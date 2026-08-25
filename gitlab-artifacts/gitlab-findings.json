@@ -1,0 +1,2632 @@
+{
+  "findings": [
+    {
+      "id": "GITLAB-SAST-001",
+      "title": "Container Traffic Not Bound To Host Interface",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 125
+        }
+      ],
+      "description": "Incoming container traffic should be bound to a specific host interface",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-002",
+      "title": "Container Traffic Not Bound To Host Interface",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 31
+        }
+      ],
+      "description": "Incoming container traffic should be bound to a specific host interface",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-003",
+      "title": "Container Traffic Not Bound To Host Interface",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 67
+        }
+      ],
+      "description": "Incoming container traffic should be bound to a specific host interface",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-004",
+      "title": "Container Traffic Not Bound To Host Interface",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 81
+        }
+      ],
+      "description": "Incoming container traffic should be bound to a specific host interface",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-005",
+      "title": "Security Opt Not Set",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 121
+        }
+      ],
+      "description": "Attribute 'security_opt' should be defined.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-006",
+      "title": "Security Opt Not Set",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 27
+        }
+      ],
+      "description": "Attribute 'security_opt' should be defined.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-007",
+      "title": "Security Opt Not Set",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 46
+        }
+      ],
+      "description": "Attribute 'security_opt' should be defined.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-008",
+      "title": "Security Opt Not Set",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 5
+        }
+      ],
+      "description": "Attribute 'security_opt' should be defined.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-009",
+      "title": "Security Opt Not Set",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 61
+        }
+      ],
+      "description": "Attribute 'security_opt' should be defined.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-010",
+      "title": "Security Opt Not Set",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 77
+        }
+      ],
+      "description": "Attribute 'security_opt' should be defined.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-011",
+      "title": "Security Opt Not Set",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 90
+        }
+      ],
+      "description": "Attribute 'security_opt' should be defined.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-012",
+      "title": "Healthcheck Not Set",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 121
+        }
+      ],
+      "description": "Check containers periodically to see if they are running properly.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-013",
+      "title": "Healthcheck Not Set",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 27
+        }
+      ],
+      "description": "Check containers periodically to see if they are running properly.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-014",
+      "title": "Healthcheck Not Set",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 46
+        }
+      ],
+      "description": "Check containers periodically to see if they are running properly.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-015",
+      "title": "Healthcheck Not Set",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 5
+        }
+      ],
+      "description": "Check containers periodically to see if they are running properly.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-016",
+      "title": "Healthcheck Not Set",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 61
+        }
+      ],
+      "description": "Check containers periodically to see if they are running properly.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-017",
+      "title": "Healthcheck Not Set",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 77
+        }
+      ],
+      "description": "Check containers periodically to see if they are running properly.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-018",
+      "title": "Healthcheck Not Set",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 90
+        }
+      ],
+      "description": "Check containers periodically to see if they are running properly.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-019",
+      "title": "Apt Get Install Pin Version Not Defined",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "When installing a package, its pin version should be defined",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-020",
+      "title": "Apt Get Install Pin Version Not Defined",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "When installing a package, its pin version should be defined",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-021",
+      "title": "Apt Get Install Pin Version Not Defined",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "When installing a package, its pin version should be defined",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-022",
+      "title": "Apt Get Install Pin Version Not Defined",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "When installing a package, its pin version should be defined",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-023",
+      "title": "Apt Get Install Pin Version Not Defined",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "When installing a package, its pin version should be defined",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-024",
+      "title": "Apt Get Install Pin Version Not Defined",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "When installing a package, its pin version should be defined",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-025",
+      "title": "Apt Get Install Pin Version Not Defined",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "When installing a package, its pin version should be defined",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-026",
+      "title": "Apt Get Install Pin Version Not Defined",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "When installing a package, its pin version should be defined",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-027",
+      "title": "Apt Get Install Pin Version Not Defined",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "When installing a package, its pin version should be defined",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-028",
+      "title": "Apt Get Install Pin Version Not Defined",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "When installing a package, its pin version should be defined",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-029",
+      "title": "Apt Get Install Pin Version Not Defined",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "When installing a package, its pin version should be defined",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-030",
+      "title": "Apt Get Install Pin Version Not Defined",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "When installing a package, its pin version should be defined",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-031",
+      "title": "Apt Get Install Pin Version Not Defined",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "When installing a package, its pin version should be defined",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-032",
+      "title": "Apt Get Install Pin Version Not Defined",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "When installing a package, its pin version should be defined",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-033",
+      "title": "Apt Get Install Pin Version Not Defined",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "When installing a package, its pin version should be defined",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-034",
+      "title": "Apt Get Install Pin Version Not Defined",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "When installing a package, its pin version should be defined",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-035",
+      "title": "Memory Not Limited",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 121
+        }
+      ],
+      "description": "Memory limits should be defined for each container. This prevents potential resource exhaustion by ensuring that containers consume not more than the designated amount of memory",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-036",
+      "title": "Memory Not Limited",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 27
+        }
+      ],
+      "description": "Memory limits should be defined for each container. This prevents potential resource exhaustion by ensuring that containers consume not more than the designated amount of memory",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-037",
+      "title": "Memory Not Limited",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 46
+        }
+      ],
+      "description": "Memory limits should be defined for each container. This prevents potential resource exhaustion by ensuring that containers consume not more than the designated amount of memory",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-038",
+      "title": "Memory Not Limited",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 5
+        }
+      ],
+      "description": "Memory limits should be defined for each container. This prevents potential resource exhaustion by ensuring that containers consume not more than the designated amount of memory",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-039",
+      "title": "Memory Not Limited",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 61
+        }
+      ],
+      "description": "Memory limits should be defined for each container. This prevents potential resource exhaustion by ensuring that containers consume not more than the designated amount of memory",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-040",
+      "title": "Memory Not Limited",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 77
+        }
+      ],
+      "description": "Memory limits should be defined for each container. This prevents potential resource exhaustion by ensuring that containers consume not more than the designated amount of memory",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-041",
+      "title": "Memory Not Limited",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 90
+        }
+      ],
+      "description": "Memory limits should be defined for each container. This prevents potential resource exhaustion by ensuring that containers consume not more than the designated amount of memory",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-042",
+      "title": "Privileged Ports Mapped In Container",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 125
+        }
+      ],
+      "description": "Privileged ports (1 to 1023) should not be mapped. Also you should drop net_bind_service linux capability from the container unless you absolutely need to use priviledged ports.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-043",
+      "title": "Privileged Ports Mapped In Container",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 67
+        }
+      ],
+      "description": "Privileged ports (1 to 1023) should not be mapped. Also you should drop net_bind_service linux capability from the container unless you absolutely need to use priviledged ports.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-044",
+      "title": "Container Capabilities Unrestricted",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 121
+        }
+      ],
+      "description": "Some capabilities are not needed in certain (or any) containers. Make sure that you only add capabilities that your container needs. Drop unnecessary capabilities as well.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-045",
+      "title": "Container Capabilities Unrestricted",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 27
+        }
+      ],
+      "description": "Some capabilities are not needed in certain (or any) containers. Make sure that you only add capabilities that your container needs. Drop unnecessary capabilities as well.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-046",
+      "title": "Container Capabilities Unrestricted",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 46
+        }
+      ],
+      "description": "Some capabilities are not needed in certain (or any) containers. Make sure that you only add capabilities that your container needs. Drop unnecessary capabilities as well.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-047",
+      "title": "Container Capabilities Unrestricted",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 5
+        }
+      ],
+      "description": "Some capabilities are not needed in certain (or any) containers. Make sure that you only add capabilities that your container needs. Drop unnecessary capabilities as well.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-048",
+      "title": "Container Capabilities Unrestricted",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 61
+        }
+      ],
+      "description": "Some capabilities are not needed in certain (or any) containers. Make sure that you only add capabilities that your container needs. Drop unnecessary capabilities as well.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-049",
+      "title": "Container Capabilities Unrestricted",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 77
+        }
+      ],
+      "description": "Some capabilities are not needed in certain (or any) containers. Make sure that you only add capabilities that your container needs. Drop unnecessary capabilities as well.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-050",
+      "title": "Container Capabilities Unrestricted",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 90
+        }
+      ],
+      "description": "Some capabilities are not needed in certain (or any) containers. Make sure that you only add capabilities that your container needs. Drop unnecessary capabilities as well.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-051",
+      "title": "Multiple RUN, ADD, COPY, Instructions Listed",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 11
+        }
+      ],
+      "description": "Multiple commands (RUN, COPY, ADD) should be grouped in order to reduce the number of layers.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-052",
+      "title": "Cpus Not Limited",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 121
+        }
+      ],
+      "description": "CPU limits should be set because if the system has CPU time free, a container is guaranteed to be allocated as much CPU as it requests",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-053",
+      "title": "Cpus Not Limited",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 27
+        }
+      ],
+      "description": "CPU limits should be set because if the system has CPU time free, a container is guaranteed to be allocated as much CPU as it requests",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-054",
+      "title": "Cpus Not Limited",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 46
+        }
+      ],
+      "description": "CPU limits should be set because if the system has CPU time free, a container is guaranteed to be allocated as much CPU as it requests",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-055",
+      "title": "Cpus Not Limited",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 5
+        }
+      ],
+      "description": "CPU limits should be set because if the system has CPU time free, a container is guaranteed to be allocated as much CPU as it requests",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-056",
+      "title": "Cpus Not Limited",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 61
+        }
+      ],
+      "description": "CPU limits should be set because if the system has CPU time free, a container is guaranteed to be allocated as much CPU as it requests",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-057",
+      "title": "Cpus Not Limited",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 77
+        }
+      ],
+      "description": "CPU limits should be set because if the system has CPU time free, a container is guaranteed to be allocated as much CPU as it requests",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-058",
+      "title": "Cpus Not Limited",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 90
+        }
+      ],
+      "description": "CPU limits should be set because if the system has CPU time free, a container is guaranteed to be allocated as much CPU as it requests",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-059",
+      "title": "APT-GET Not Avoiding Additional Packages",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "Check if any apt-get installs don't use '--no-install-recommends' flag to avoid installing additional packages.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-060",
+      "title": "Shared Volumes Between Containers",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 103
+        }
+      ],
+      "description": "Volumes shared between containers can cause data corruption or can be used to share malicious files between containers.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-061",
+      "title": "Shared Volumes Between Containers",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 104
+        }
+      ],
+      "description": "Volumes shared between containers can cause data corruption or can be used to share malicious files between containers.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-062",
+      "title": "Shared Volumes Between Containers",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 130
+        }
+      ],
+      "description": "Volumes shared between containers can cause data corruption or can be used to share malicious files between containers.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-063",
+      "title": "Shared Volumes Between Containers",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 131
+        }
+      ],
+      "description": "Volumes shared between containers can cause data corruption or can be used to share malicious files between containers.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-064",
+      "title": "Shared Volumes Between Containers",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 21
+        }
+      ],
+      "description": "Volumes shared between containers can cause data corruption or can be used to share malicious files between containers.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-065",
+      "title": "Shared Volumes Between Containers",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 22
+        }
+      ],
+      "description": "Volumes shared between containers can cause data corruption or can be used to share malicious files between containers.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-066",
+      "title": "Shared Volumes Between Containers",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 41
+        }
+      ],
+      "description": "Volumes shared between containers can cause data corruption or can be used to share malicious files between containers.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-067",
+      "title": "Shared Volumes Between Containers",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 55
+        }
+      ],
+      "description": "Volumes shared between containers can cause data corruption or can be used to share malicious files between containers.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-068",
+      "title": "Shared Volumes Between Containers",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "docker-compose.yml",
+          "line": 85
+        }
+      ],
+      "description": "Volumes shared between containers can cause data corruption or can be used to share malicious files between containers.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-069",
+      "title": "Healthcheck Instruction Missing",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 1
+        }
+      ],
+      "description": "Ensure that HEALTHCHECK is being used. The HEALTHCHECK instruction tells Docker how to test a container to check that it is still working",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-070",
+      "title": "Apt Get Install Lists Were Not Deleted",
+      "severity": "Info",
+      "cvss": {},
+      "cwe": [],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": ".docker/Dockerfile",
+          "line": 23
+        }
+      ],
+      "description": "After using apt-get install, it is needed to delete apt-get lists",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-001",
+      "title": "Regular expression with non-literal value",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/parsely.js",
+          "line": 123
+        }
+      ],
+      "description": "The `RegExp` constructor was called with a non-literal value. If an adversary were able to\nsupply a malicious regex, they could cause a Regular Expression Denial of Service (ReDoS)\nagainst the application. In Node applications, this could cause the entire application to no\nlonger be responsive to other users' requests.\n\nTo remediate this issue, never allow user-supplied regular expressions. Instead, the regular \nexpression should be  hardcoded. If this is not possible, consider using an alternative regular\nexpression engine such as [node-re2](https://www.npmjs.com/package/re2). RE2 is a safe alternative \nthat does not support backtracking, which is what leads to ReDoS.\n\nExample using re2 which does not support backtracking (Note: it is still recommended to\nnever use user-supplied input):\n```\n// Import the re2 module\nconst RE2 = require('re2');\n\nfunction match(userSuppliedRegex, userInput) {\n    // Create a RE2 object with the user supplied regex, this is relatively safe\n    // due to RE2 not supporting backtracking which can be abused to cause long running\n    // queries\n    var re = new RE2(userSuppliedRegex);\n    // Execute the regular expression against some userInput\n    var result = re.exec(userInput);\n    // Work with the result\n}\n```\n\nFor more information on Regular Expression DoS see:\n- https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-002",
+      "title": "Regular expression with non-literal value",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/parsely1.js",
+          "line": 123
+        }
+      ],
+      "description": "The `RegExp` constructor was called with a non-literal value. If an adversary were able to\nsupply a malicious regex, they could cause a Regular Expression Denial of Service (ReDoS)\nagainst the application. In Node applications, this could cause the entire application to no\nlonger be responsive to other users' requests.\n\nTo remediate this issue, never allow user-supplied regular expressions. Instead, the regular \nexpression should be  hardcoded. If this is not possible, consider using an alternative regular\nexpression engine such as [node-re2](https://www.npmjs.com/package/re2). RE2 is a safe alternative \nthat does not support backtracking, which is what leads to ReDoS.\n\nExample using re2 which does not support backtracking (Note: it is still recommended to\nnever use user-supplied input):\n```\n// Import the re2 module\nconst RE2 = require('re2');\n\nfunction match(userSuppliedRegex, userInput) {\n    // Create a RE2 object with the user supplied regex, this is relatively safe\n    // due to RE2 not supporting backtracking which can be abused to cause long running\n    // queries\n    var re = new RE2(userSuppliedRegex);\n    // Execute the regular expression against some userInput\n    var result = re.exec(userInput);\n    // Work with the result\n}\n```\n\nFor more information on Regular Expression DoS see:\n- https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-003",
+      "title": "Regular expression with non-literal value",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/parsely.js",
+          "line": 237
+        }
+      ],
+      "description": "The `RegExp` constructor was called with a non-literal value. If an adversary were able to\nsupply a malicious regex, they could cause a Regular Expression Denial of Service (ReDoS)\nagainst the application. In Node applications, this could cause the entire application to no\nlonger be responsive to other users' requests.\n\nTo remediate this issue, never allow user-supplied regular expressions. Instead, the regular \nexpression should be  hardcoded. If this is not possible, consider using an alternative regular\nexpression engine such as [node-re2](https://www.npmjs.com/package/re2). RE2 is a safe alternative \nthat does not support backtracking, which is what leads to ReDoS.\n\nExample using re2 which does not support backtracking (Note: it is still recommended to\nnever use user-supplied input):\n```\n// Import the re2 module\nconst RE2 = require('re2');\n\nfunction match(userSuppliedRegex, userInput) {\n    // Create a RE2 object with the user supplied regex, this is relatively safe\n    // due to RE2 not supporting backtracking which can be abused to cause long running\n    // queries\n    var re = new RE2(userSuppliedRegex);\n    // Execute the regular expression against some userInput\n    var result = re.exec(userInput);\n    // Work with the result\n}\n```\n\nFor more information on Regular Expression DoS see:\n- https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-004",
+      "title": "Regular expression with non-literal value",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/parsely1.js",
+          "line": 237
+        }
+      ],
+      "description": "The `RegExp` constructor was called with a non-literal value. If an adversary were able to\nsupply a malicious regex, they could cause a Regular Expression Denial of Service (ReDoS)\nagainst the application. In Node applications, this could cause the entire application to no\nlonger be responsive to other users' requests.\n\nTo remediate this issue, never allow user-supplied regular expressions. Instead, the regular \nexpression should be  hardcoded. If this is not possible, consider using an alternative regular\nexpression engine such as [node-re2](https://www.npmjs.com/package/re2). RE2 is a safe alternative \nthat does not support backtracking, which is what leads to ReDoS.\n\nExample using re2 which does not support backtracking (Note: it is still recommended to\nnever use user-supplied input):\n```\n// Import the re2 module\nconst RE2 = require('re2');\n\nfunction match(userSuppliedRegex, userInput) {\n    // Create a RE2 object with the user supplied regex, this is relatively safe\n    // due to RE2 not supporting backtracking which can be abused to cause long running\n    // queries\n    var re = new RE2(userSuppliedRegex);\n    // Execute the regular expression against some userInput\n    var result = re.exec(userInput);\n    // Work with the result\n}\n```\n\nFor more information on Regular Expression DoS see:\n- https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-005",
+      "title": "Regular expression with non-literal value",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/parsely.js",
+          "line": 243
+        }
+      ],
+      "description": "The `RegExp` constructor was called with a non-literal value. If an adversary were able to\nsupply a malicious regex, they could cause a Regular Expression Denial of Service (ReDoS)\nagainst the application. In Node applications, this could cause the entire application to no\nlonger be responsive to other users' requests.\n\nTo remediate this issue, never allow user-supplied regular expressions. Instead, the regular \nexpression should be  hardcoded. If this is not possible, consider using an alternative regular\nexpression engine such as [node-re2](https://www.npmjs.com/package/re2). RE2 is a safe alternative \nthat does not support backtracking, which is what leads to ReDoS.\n\nExample using re2 which does not support backtracking (Note: it is still recommended to\nnever use user-supplied input):\n```\n// Import the re2 module\nconst RE2 = require('re2');\n\nfunction match(userSuppliedRegex, userInput) {\n    // Create a RE2 object with the user supplied regex, this is relatively safe\n    // due to RE2 not supporting backtracking which can be abused to cause long running\n    // queries\n    var re = new RE2(userSuppliedRegex);\n    // Execute the regular expression against some userInput\n    var result = re.exec(userInput);\n    // Work with the result\n}\n```\n\nFor more information on Regular Expression DoS see:\n- https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-006",
+      "title": "Regular expression with non-literal value",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/parsely1.js",
+          "line": 243
+        }
+      ],
+      "description": "The `RegExp` constructor was called with a non-literal value. If an adversary were able to\nsupply a malicious regex, they could cause a Regular Expression Denial of Service (ReDoS)\nagainst the application. In Node applications, this could cause the entire application to no\nlonger be responsive to other users' requests.\n\nTo remediate this issue, never allow user-supplied regular expressions. Instead, the regular \nexpression should be  hardcoded. If this is not possible, consider using an alternative regular\nexpression engine such as [node-re2](https://www.npmjs.com/package/re2). RE2 is a safe alternative \nthat does not support backtracking, which is what leads to ReDoS.\n\nExample using re2 which does not support backtracking (Note: it is still recommended to\nnever use user-supplied input):\n```\n// Import the re2 module\nconst RE2 = require('re2');\n\nfunction match(userSuppliedRegex, userInput) {\n    // Create a RE2 object with the user supplied regex, this is relatively safe\n    // due to RE2 not supporting backtracking which can be abused to cause long running\n    // queries\n    var re = new RE2(userSuppliedRegex);\n    // Execute the regular expression against some userInput\n    var result = re.exec(userInput);\n    // Work with the result\n}\n```\n\nFor more information on Regular Expression DoS see:\n- https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-007",
+      "title": "Regular expression with non-literal value",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/js/jquery_3.2.1.js",
+          "line": 2
+        }
+      ],
+      "description": "The `RegExp` constructor was called with a non-literal value. If an adversary were able to\nsupply a malicious regex, they could cause a Regular Expression Denial of Service (ReDoS)\nagainst the application. In Node applications, this could cause the entire application to no\nlonger be responsive to other users' requests.\n\nTo remediate this issue, never allow user-supplied regular expressions. Instead, the regular \nexpression should be  hardcoded. If this is not possible, consider using an alternative regular\nexpression engine such as [node-re2](https://www.npmjs.com/package/re2). RE2 is a safe alternative \nthat does not support backtracking, which is what leads to ReDoS.\n\nExample using re2 which does not support backtracking (Note: it is still recommended to\nnever use user-supplied input):\n```\n// Import the re2 module\nconst RE2 = require('re2');\n\nfunction match(userSuppliedRegex, userInput) {\n    // Create a RE2 object with the user supplied regex, this is relatively safe\n    // due to RE2 not supporting backtracking which can be abused to cause long running\n    // queries\n    var re = new RE2(userSuppliedRegex);\n    // Execute the regular expression against some userInput\n    var result = re.exec(userInput);\n    // Work with the result\n}\n```\n\nFor more information on Regular Expression DoS see:\n- https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-008",
+      "title": "Regular expression with non-literal value",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/js/jquery_3.2.1.js",
+          "line": 2
+        }
+      ],
+      "description": "The `RegExp` constructor was called with a non-literal value. If an adversary were able to\nsupply a malicious regex, they could cause a Regular Expression Denial of Service (ReDoS)\nagainst the application. In Node applications, this could cause the entire application to no\nlonger be responsive to other users' requests.\n\nTo remediate this issue, never allow user-supplied regular expressions. Instead, the regular \nexpression should be  hardcoded. If this is not possible, consider using an alternative regular\nexpression engine such as [node-re2](https://www.npmjs.com/package/re2). RE2 is a safe alternative \nthat does not support backtracking, which is what leads to ReDoS.\n\nExample using re2 which does not support backtracking (Note: it is still recommended to\nnever use user-supplied input):\n```\n// Import the re2 module\nconst RE2 = require('re2');\n\nfunction match(userSuppliedRegex, userInput) {\n    // Create a RE2 object with the user supplied regex, this is relatively safe\n    // due to RE2 not supporting backtracking which can be abused to cause long running\n    // queries\n    var re = new RE2(userSuppliedRegex);\n    // Execute the regular expression against some userInput\n    var result = re.exec(userInput);\n    // Work with the result\n}\n```\n\nFor more information on Regular Expression DoS see:\n- https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-009",
+      "title": "Regular expression with non-literal value",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/js/jquery_3.2.1.js",
+          "line": 2
+        }
+      ],
+      "description": "The `RegExp` constructor was called with a non-literal value. If an adversary were able to\nsupply a malicious regex, they could cause a Regular Expression Denial of Service (ReDoS)\nagainst the application. In Node applications, this could cause the entire application to no\nlonger be responsive to other users' requests.\n\nTo remediate this issue, never allow user-supplied regular expressions. Instead, the regular \nexpression should be  hardcoded. If this is not possible, consider using an alternative regular\nexpression engine such as [node-re2](https://www.npmjs.com/package/re2). RE2 is a safe alternative \nthat does not support backtracking, which is what leads to ReDoS.\n\nExample using re2 which does not support backtracking (Note: it is still recommended to\nnever use user-supplied input):\n```\n// Import the re2 module\nconst RE2 = require('re2');\n\nfunction match(userSuppliedRegex, userInput) {\n    // Create a RE2 object with the user supplied regex, this is relatively safe\n    // due to RE2 not supporting backtracking which can be abused to cause long running\n    // queries\n    var re = new RE2(userSuppliedRegex);\n    // Execute the regular expression against some userInput\n    var result = re.exec(userInput);\n    // Work with the result\n}\n```\n\nFor more information on Regular Expression DoS see:\n- https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-010",
+      "title": "Regular expression with non-literal value",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/js/jquery_3.2.1.js",
+          "line": 3
+        }
+      ],
+      "description": "The `RegExp` constructor was called with a non-literal value. If an adversary were able to\nsupply a malicious regex, they could cause a Regular Expression Denial of Service (ReDoS)\nagainst the application. In Node applications, this could cause the entire application to no\nlonger be responsive to other users' requests.\n\nTo remediate this issue, never allow user-supplied regular expressions. Instead, the regular \nexpression should be  hardcoded. If this is not possible, consider using an alternative regular\nexpression engine such as [node-re2](https://www.npmjs.com/package/re2). RE2 is a safe alternative \nthat does not support backtracking, which is what leads to ReDoS.\n\nExample using re2 which does not support backtracking (Note: it is still recommended to\nnever use user-supplied input):\n```\n// Import the re2 module\nconst RE2 = require('re2');\n\nfunction match(userSuppliedRegex, userInput) {\n    // Create a RE2 object with the user supplied regex, this is relatively safe\n    // due to RE2 not supporting backtracking which can be abused to cause long running\n    // queries\n    var re = new RE2(userSuppliedRegex);\n    // Execute the regular expression against some userInput\n    var result = re.exec(userInput);\n    // Work with the result\n}\n```\n\nFor more information on Regular Expression DoS see:\n- https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-011",
+      "title": "Regular expression with non-literal value",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/js/jquery_3.2.1.js",
+          "line": 3
+        }
+      ],
+      "description": "The `RegExp` constructor was called with a non-literal value. If an adversary were able to\nsupply a malicious regex, they could cause a Regular Expression Denial of Service (ReDoS)\nagainst the application. In Node applications, this could cause the entire application to no\nlonger be responsive to other users' requests.\n\nTo remediate this issue, never allow user-supplied regular expressions. Instead, the regular \nexpression should be  hardcoded. If this is not possible, consider using an alternative regular\nexpression engine such as [node-re2](https://www.npmjs.com/package/re2). RE2 is a safe alternative \nthat does not support backtracking, which is what leads to ReDoS.\n\nExample using re2 which does not support backtracking (Note: it is still recommended to\nnever use user-supplied input):\n```\n// Import the re2 module\nconst RE2 = require('re2');\n\nfunction match(userSuppliedRegex, userInput) {\n    // Create a RE2 object with the user supplied regex, this is relatively safe\n    // due to RE2 not supporting backtracking which can be abused to cause long running\n    // queries\n    var re = new RE2(userSuppliedRegex);\n    // Execute the regular expression against some userInput\n    var result = re.exec(userInput);\n    // Work with the result\n}\n```\n\nFor more information on Regular Expression DoS see:\n- https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-012",
+      "title": "Regular expression with non-literal value",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/js/jquery_3.2.1.js",
+          "line": 3
+        }
+      ],
+      "description": "The `RegExp` constructor was called with a non-literal value. If an adversary were able to\nsupply a malicious regex, they could cause a Regular Expression Denial of Service (ReDoS)\nagainst the application. In Node applications, this could cause the entire application to no\nlonger be responsive to other users' requests.\n\nTo remediate this issue, never allow user-supplied regular expressions. Instead, the regular \nexpression should be  hardcoded. If this is not possible, consider using an alternative regular\nexpression engine such as [node-re2](https://www.npmjs.com/package/re2). RE2 is a safe alternative \nthat does not support backtracking, which is what leads to ReDoS.\n\nExample using re2 which does not support backtracking (Note: it is still recommended to\nnever use user-supplied input):\n```\n// Import the re2 module\nconst RE2 = require('re2');\n\nfunction match(userSuppliedRegex, userInput) {\n    // Create a RE2 object with the user supplied regex, this is relatively safe\n    // due to RE2 not supporting backtracking which can be abused to cause long running\n    // queries\n    var re = new RE2(userSuppliedRegex);\n    // Execute the regular expression against some userInput\n    var result = re.exec(userInput);\n    // Work with the result\n}\n```\n\nFor more information on Regular Expression DoS see:\n- https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-013",
+      "title": "Regular expression with non-literal value",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/js/jquery_3.2.1.js",
+          "line": 4
+        }
+      ],
+      "description": "The `RegExp` constructor was called with a non-literal value. If an adversary were able to\nsupply a malicious regex, they could cause a Regular Expression Denial of Service (ReDoS)\nagainst the application. In Node applications, this could cause the entire application to no\nlonger be responsive to other users' requests.\n\nTo remediate this issue, never allow user-supplied regular expressions. Instead, the regular \nexpression should be  hardcoded. If this is not possible, consider using an alternative regular\nexpression engine such as [node-re2](https://www.npmjs.com/package/re2). RE2 is a safe alternative \nthat does not support backtracking, which is what leads to ReDoS.\n\nExample using re2 which does not support backtracking (Note: it is still recommended to\nnever use user-supplied input):\n```\n// Import the re2 module\nconst RE2 = require('re2');\n\nfunction match(userSuppliedRegex, userInput) {\n    // Create a RE2 object with the user supplied regex, this is relatively safe\n    // due to RE2 not supporting backtracking which can be abused to cause long running\n    // queries\n    var re = new RE2(userSuppliedRegex);\n    // Execute the regular expression against some userInput\n    var result = re.exec(userInput);\n    // Work with the result\n}\n```\n\nFor more information on Regular Expression DoS see:\n- https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-014",
+      "title": "Use of cryptographically weak pseudo-random number generator (PRNG)",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-338"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/js/jquery_3.2.1.js",
+          "line": 2
+        }
+      ],
+      "description": "This rule identifies use of cryptographically weak random number generators.\nUsing cryptographically weak random number generators like `crypto.pseudoRandomBytes()` \nand `Math.random()` for security-critical tasks can expose systems to significant \nvulnerabilities. Attackers might predict the generated random numbers, compromising \nthe integrity and confidentiality of cryptographic operations. This could lead to \nbreaches where sensitive data is accessed or manipulated, authentication mechanisms \nare bypassed, or secure communications are intercepted, ultimately undermining the \nsecurity of the entire system or application.\n\nMitigation strategy:\nReplace the use of these cryptographically weak random number generators with \n`crypto.randomBytes()`, a method provided by Node.js's `crypto` module that \ngenerates cryptographically secure random numbers. This method should be used \nfor all operations requiring secure randomness, such as generating keys, tokens, \nor any cryptographic material.\n\nSecure Code Example:\n```\nconst crypto = require('crypto');\nconst secureBytes = crypto.randomBytes(256);\nconsole.log(`Secure random bytes: ${secureBytes.toString('hex')}`);\n```",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-015",
+      "title": "Use of cryptographically weak pseudo-random number generator (PRNG)",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-338"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/js/jquery_3.2.1.js",
+          "line": 2
+        }
+      ],
+      "description": "This rule identifies use of cryptographically weak random number generators.\nUsing cryptographically weak random number generators like `crypto.pseudoRandomBytes()` \nand `Math.random()` for security-critical tasks can expose systems to significant \nvulnerabilities. Attackers might predict the generated random numbers, compromising \nthe integrity and confidentiality of cryptographic operations. This could lead to \nbreaches where sensitive data is accessed or manipulated, authentication mechanisms \nare bypassed, or secure communications are intercepted, ultimately undermining the \nsecurity of the entire system or application.\n\nMitigation strategy:\nReplace the use of these cryptographically weak random number generators with \n`crypto.randomBytes()`, a method provided by Node.js's `crypto` module that \ngenerates cryptographically secure random numbers. This method should be used \nfor all operations requiring secure randomness, such as generating keys, tokens, \nor any cryptographic material.\n\nSecure Code Example:\n```\nconst crypto = require('crypto');\nconst secureBytes = crypto.randomBytes(256);\nconsole.log(`Secure random bytes: ${secureBytes.toString('hex')}`);\n```",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-016",
+      "title": "Incorrect regular expression",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/parsely.js",
+          "line": 778
+        }
+      ],
+      "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-017",
+      "title": "Incorrect regular expression",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/parsely1.js",
+          "line": 778
+        }
+      ],
+      "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-018",
+      "title": "Incorrect regular expression",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/parsely.js",
+          "line": 808
+        }
+      ],
+      "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-019",
+      "title": "Incorrect regular expression",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/parsely1.js",
+          "line": 808
+        }
+      ],
+      "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-020",
+      "title": "Incorrect regular expression",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/parsely.js",
+          "line": 884
+        }
+      ],
+      "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    },
+    {
+      "id": "GITLAB-SAST-021",
+      "title": "Incorrect regular expression",
+      "severity": "Medium",
+      "cvss": {},
+      "cwe": [
+        "CWE-185"
+      ],
+      "owasp": [],
+      "category": "sast",
+      "locations": [
+        {
+          "path": "public/front/assets/parsely1.js",
+          "line": 884
+        }
+      ],
+      "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+      "impact": "",
+      "evidence": "",
+      "reachability": "Reported by GitLab CI; verify reachability.",
+      "remediation": {
+        "summary": ""
+      },
+      "status": "candidate",
+      "discovered_by": "gitlab-sast"
+    }
+  ],
+  "dependencies": [
+    {
+      "package": "dompdf/dompdf",
+      "version": "v3.1.4",
+      "advisory": "CVE-2026-56722",
+      "fixed_version": "3.1.6",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "dompdf/dompdf",
+      "version": "v3.1.4",
+      "advisory": "CVE-2026-59941",
+      "fixed_version": "3.1.6",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "dompdf/dompdf",
+      "version": "v3.1.4",
+      "advisory": "CVE-2026-59942",
+      "fixed_version": "3.1.6",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "dompdf/dompdf",
+      "version": "v3.1.4",
+      "advisory": "CVE-2026-59943",
+      "fixed_version": "3.1.6",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "dompdf/dompdf",
+      "version": "v3.1.4",
+      "advisory": "CVE-2026-55554",
+      "fixed_version": "3.1.6",
+      "severity": "Low",
+      "path": "composer.lock"
+    },
+    {
+      "package": "dompdf/dompdf",
+      "version": "v3.1.4",
+      "advisory": "CVE-2026-55555",
+      "fixed_version": "3.1.6",
+      "severity": "Low",
+      "path": "composer.lock"
+    },
+    {
+      "package": "guzzlehttp/guzzle",
+      "version": "7.10.0",
+      "advisory": "CVE-2026-69246",
+      "fixed_version": "7.15.2, 8.0.1",
+      "severity": "High",
+      "path": "composer.lock"
+    },
+    {
+      "package": "guzzlehttp/guzzle",
+      "version": "7.10.0",
+      "advisory": "CVE-2026-55568",
+      "fixed_version": "7.12.1",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "guzzlehttp/guzzle",
+      "version": "7.10.0",
+      "advisory": "CVE-2026-55767",
+      "fixed_version": "7.12.1",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "guzzlehttp/guzzle",
+      "version": "7.10.0",
+      "advisory": "CVE-2026-59883",
+      "fixed_version": "7.12.3",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "guzzlehttp/guzzle",
+      "version": "7.10.0",
+      "advisory": "CVE-2026-67339",
+      "fixed_version": "7.14.2",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "guzzlehttp/guzzle",
+      "version": "7.10.0",
+      "advisory": "CVE-2026-67353",
+      "fixed_version": "7.15.1",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "guzzlehttp/guzzle",
+      "version": "7.10.0",
+      "advisory": "CVE-2026-67354",
+      "fixed_version": "7.15.1",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "guzzlehttp/guzzle",
+      "version": "7.10.0",
+      "advisory": "CVE-2026-67355",
+      "fixed_version": "7.15.1",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "guzzlehttp/guzzle",
+      "version": "7.10.0",
+      "advisory": "CVE-2026-69245",
+      "fixed_version": "7.15.2, 8.0.1",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "guzzlehttp/psr7",
+      "version": "2.8.0",
+      "advisory": "CVE-2026-48998",
+      "fixed_version": "2.10.2",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "guzzlehttp/psr7",
+      "version": "2.8.0",
+      "advisory": "CVE-2026-49214",
+      "fixed_version": "2.10.2",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "guzzlehttp/psr7",
+      "version": "2.8.0",
+      "advisory": "CVE-2026-55766",
+      "fixed_version": "2.12.1",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "guzzlehttp/psr7",
+      "version": "2.8.0",
+      "advisory": "CVE-2026-59882",
+      "fixed_version": "2.12.3",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "laravel/framework",
+      "version": "v9.52.21",
+      "advisory": "GHSA-5vg9-5847-vvmq",
+      "fixed_version": "13.10.0, 12.60.0",
+      "severity": "High",
+      "path": "composer.lock"
+    },
+    {
+      "package": "laravel/framework",
+      "version": "v9.52.21",
+      "advisory": "CVE-2025-27515",
+      "fixed_version": "12.1.1, 11.44.1, 10.48.29",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "laravel/framework",
+      "version": "v9.52.21",
+      "advisory": "GHSA-crmm-hgp2-wgrp",
+      "fixed_version": "13.12.0, 12.61.1",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "laravel/framework",
+      "version": "v9.52.21",
+      "advisory": "CVE-2026-48019",
+      "fixed_version": "11.0.0, 12.0.0, 12.60.0, 13.10.0, 10.0.0",
+      "severity": "Info",
+      "path": "composer.lock"
+    },
+    {
+      "package": "league/commonmark",
+      "version": "2.8.0",
+      "advisory": "CVE-2026-71488",
+      "fixed_version": "2.9.0",
+      "severity": "High",
+      "path": "composer.lock"
+    },
+    {
+      "package": "league/commonmark",
+      "version": "2.8.0",
+      "advisory": "GHSA-g2gp-3wwq-f4ph",
+      "fixed_version": "2.9.0",
+      "severity": "High",
+      "path": "composer.lock"
+    },
+    {
+      "package": "league/commonmark",
+      "version": "2.8.0",
+      "advisory": "GHSA-jfm3-95jq-q3rf",
+      "fixed_version": "2.9.0",
+      "severity": "High",
+      "path": "composer.lock"
+    },
+    {
+      "package": "league/commonmark",
+      "version": "2.8.0",
+      "advisory": "GHSA-mh25-x5hq-wrqp",
+      "fixed_version": "2.9.0",
+      "severity": "High",
+      "path": "composer.lock"
+    },
+    {
+      "package": "league/commonmark",
+      "version": "2.8.0",
+      "advisory": "CVE-2026-30838",
+      "fixed_version": "2.8.1",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "league/commonmark",
+      "version": "2.8.0",
+      "advisory": "CVE-2026-33347",
+      "fixed_version": "2.8.2",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "league/commonmark",
+      "version": "2.8.0",
+      "advisory": "CVE-2026-71478",
+      "fixed_version": "2.9.0",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "league/commonmark",
+      "version": "2.8.0",
+      "advisory": "GHSA-mj63-m3rc-8ppr",
+      "fixed_version": "2.9.0",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "phpoffice/phpspreadsheet",
+      "version": "1.30.2",
+      "advisory": "CVE-2026-34084",
+      "fixed_version": "5.6.0, 3.10.4, 2.4.4, 2.1.15, 1.30.3",
+      "severity": "Critical",
+      "path": "composer.lock"
+    },
+    {
+      "package": "phpoffice/phpspreadsheet",
+      "version": "1.30.2",
+      "advisory": "CVE-2026-45034",
+      "fixed_version": "1.30.5",
+      "severity": "Critical",
+      "path": "composer.lock"
+    },
+    {
+      "package": "phpoffice/phpspreadsheet",
+      "version": "1.30.2",
+      "advisory": "CVE-2026-40863",
+      "fixed_version": "5.7.0, 3.10.5, 2.4.5, 2.1.16, 1.30.4",
+      "severity": "High",
+      "path": "composer.lock"
+    },
+    {
+      "package": "phpoffice/phpspreadsheet",
+      "version": "1.30.2",
+      "advisory": "CVE-2026-40902",
+      "fixed_version": "5.7.0, 3.10.5, 2.4.5, 2.1.16, 1.30.4",
+      "severity": "High",
+      "path": "composer.lock"
+    },
+    {
+      "package": "phpoffice/phpspreadsheet",
+      "version": "1.30.2",
+      "advisory": "CVE-2026-59931",
+      "fixed_version": "5.8.1, 3.10.7, 2.4.7, 2.1.18, 1.30.6",
+      "severity": "High",
+      "path": "composer.lock"
+    },
+    {
+      "package": "phpoffice/phpspreadsheet",
+      "version": "1.30.2",
+      "advisory": "CVE-2026-59932",
+      "fixed_version": "5.8.1, 3.10.7, 2.4.7, 2.1.18, 1.30.6",
+      "severity": "High",
+      "path": "composer.lock"
+    },
+    {
+      "package": "phpoffice/phpspreadsheet",
+      "version": "1.30.2",
+      "advisory": "CVE-2026-59933",
+      "fixed_version": "5.8.1, 3.10.7, 2.4.7, 2.1.18, 1.30.6",
+      "severity": "High",
+      "path": "composer.lock"
+    },
+    {
+      "package": "phpoffice/phpspreadsheet",
+      "version": "1.30.2",
+      "advisory": "CVE-2026-35453",
+      "fixed_version": "5.7.0, 3.10.5, 2.4.5, 2.1.16, 1.30.4",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "phpoffice/phpspreadsheet",
+      "version": "1.30.2",
+      "advisory": "CVE-2026-40296",
+      "fixed_version": "5.7.0, 3.10.5, 2.4.5, 2.1.16, 1.30.4",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "psy/psysh",
+      "version": "v0.12.18",
+      "advisory": "CVE-2026-25129",
+      "fixed_version": "0.12.19, 0.11.23",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "setasign/fpdi",
+      "version": "v2.6.4",
+      "advisory": "CVE-2026-45802",
+      "fixed_version": "2.6.7",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "symfony/http-foundation",
+      "version": "v6.4.31",
+      "advisory": "CVE-2026-48736",
+      "fixed_version": "8.0.13, 6.4.41, 7.1.0, 7.2.0, 7.3.0, 7.4.0, 7.4.13",
+      "severity": "High",
+      "path": "composer.lock"
+    },
+    {
+      "package": "symfony/mailer",
+      "version": "v6.4.31",
+      "advisory": "CVE-2026-45068",
+      "fixed_version": "3.0.0, 5.3.0, 7.1.0, 7.4.12, 4.0.0, 5.1.0, 5.2.0, 5.4.52, 6.1.0, 6.4.0, 8.0.12, 5.4.0, 6.2.0, 7.2.0, 7.4.0, 5.0.0, 6.3.0, 6.4.40, 7.3.0",
+      "severity": "High",
+      "path": "composer.lock"
+    },
+    {
+      "package": "symfony/mime",
+      "version": "v6.4.30",
+      "advisory": "CVE-2026-45067",
+      "fixed_version": "7.1.0, 4.0.0, 5.2.0, 6.4.40, 7.3.0, 8.0.12, 7.4.12, 5.0.0, 5.4.52, 6.1.0, 6.2.0, 6.3.0, 7.4.0, 3.0.0, 5.1.0, 5.3.0, 5.4.0, 6.4.0, 7.2.0",
+      "severity": "High",
+      "path": "composer.lock"
+    },
+    {
+      "package": "symfony/mime",
+      "version": "v6.4.30",
+      "advisory": "CVE-2026-45070",
+      "fixed_version": "5.4.52, 6.1.0, 6.3.0, 7.2.0, 3.0.0, 5.0.0, 6.4.0, 6.4.40, 7.1.0, 7.4.0, 7.4.12, 8.0.12, 5.3.0, 5.4.0, 5.1.0, 6.2.0, 7.3.0, 4.0.0, 5.2.0",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "symfony/polyfill-intl-idn",
+      "version": "v1.33.0",
+      "advisory": "CVE-2026-46644",
+      "fixed_version": "1.38.1",
+      "severity": "Low",
+      "path": "composer.lock"
+    },
+    {
+      "package": "symfony/process",
+      "version": "v6.4.31",
+      "advisory": "CVE-2026-24739",
+      "fixed_version": "5.4.51, 6.4.33, 7.3.11, 7.4.5, 8.0.5",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "symfony/routing",
+      "version": "v6.4.30",
+      "advisory": "CVE-2026-45065",
+      "fixed_version": "7.4.0, 8.0.12, 5.0.0, 5.4.0, 6.2.0, 7.4.12, 4.0.0, 6.3.0, 7.3.0, 6.4.40, 3.0.0, 5.1.0, 5.4.52, 6.1.0, 6.4.0, 5.2.0, 5.3.0, 7.1.0, 7.2.0",
+      "severity": "Medium",
+      "path": "composer.lock"
+    },
+    {
+      "package": "symfony/routing",
+      "version": "v6.4.30",
+      "advisory": "CVE-2026-48784",
+      "fixed_version": "4.0.0, 5.0.0, 6.4.41, 7.3.0, 8.0.13, 5.4.53, 6.1.0, 6.4.0, 5.2.0, 5.3.0, 5.4.0, 6.3.0, 7.1.0, 7.2.0, 3.0.0, 5.1.0, 6.2.0, 7.4.0, 7.4.13",
+      "severity": "Medium",
+      "path": "composer.lock"
+    }
+  ]
+}
